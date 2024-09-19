@@ -13,7 +13,7 @@ It is based on popular data science packages such as
 
 Find out more in the [xcube Documentation](https://xcube.readthedocs.io).
 
-# Working docker file:
+# Create and run docker image
 
 Build image:
 
@@ -27,7 +27,8 @@ Run:
 docker run -d -p 8080:8080 xcube:0.10.0
 ```
 
-**OR**
+**Or, if you want to send other parameters to the server**
+
 Build image:
 
 ```
@@ -40,4 +41,18 @@ Run:
 docker run -d -p 8081:8081 xcube:0.10.0 /bin/bash -c "xcube serve -v --address 0.0.0.0 --port 8081 -c /home/xcube/examples/serve/demo/config.yml"
 ```
 
-to bypass the CMD
+# Access viewer
+
+Go to e.g.
+
+```
+http://localhost:8080/viewer
+```
+
+# Access API
+
+Go to e.g.
+
+```
+http://localhost:8080
+```

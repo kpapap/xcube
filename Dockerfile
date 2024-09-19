@@ -81,4 +81,4 @@ ENTRYPOINT ["/usr/local/bin/_entrypoint.sh"]
 
 # Default command (shell form)
 # CMD xcube --help
-CMD xcube serve -a 0.0.0.0 -c /home/xcube/examples/serve/demo/config.yml
+CMD xcube serve -a 0.0.0.0 -p 8080 -c /home/xcube/examples/serve/demo/config.yml

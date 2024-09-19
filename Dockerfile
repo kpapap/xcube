@@ -1,6 +1,6 @@
 # For micromamba image documentation,
 # goto https://hub.docker.com/r/mambaorg/micromamba
-ARG MICROMAMBA_VERSION=1.3.1
+ARG MICROMAMBA_VERSION=latest
 FROM mambaorg/micromamba:${MICROMAMBA_VERSION}
 
 ARG NEW_MAMBA_USER=xcube
@@ -50,6 +50,7 @@ RUN micromamba install -y -n base -f /tmp/environment.yml \
 COPY --chown=$MAMBA_USER:$MAMBA_USER ./xcube /tmp/xcube
 COPY --chown=$MAMBA_USER:$MAMBA_USER ./pyproject.toml /tmp/pyproject.toml
 COPY --chown=$MAMBA_USER:$MAMBA_USER ./README.md /tmp/README.md
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./examples /tmp/examples
 
 # Switch into /tmp to install xcube.
 WORKDIR /tmp
@@ -70,11 +71,14 @@ RUN if [[ ${INSTALL_PLUGINS} == '1' ]]; then bash install-xcube-plugin.sh xcube-
 RUN micromamba clean --all --force-pkgs-dirs --yes
 
 WORKDIR /home/$MAMBA_USER
+COPY ./examples /home/$MAMBA_USER/examples
 
 # The micromamba entrypoint.
 # Allows us to run container as an executable with
 # base environment activated.
+# ENTRYPOINT ["/usr/local/bin/_entrypoint.sh", "xcube", "serve"] --> working!
 ENTRYPOINT ["/usr/local/bin/_entrypoint.sh"]
 
 # Default command (shell form)
-CMD xcube --help
+# CMD xcube --help
+CMD xcube serve -a 0.0.0.0 -c /home/xcube/examples/serve/demo/config.yml

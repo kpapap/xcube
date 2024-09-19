@@ -15,13 +15,13 @@ Find out more in the [xcube Documentation](https://xcube.readthedocs.io).
 
 # Create and run docker image
 
-Build image:
+Build the server image by running:
 
 ```
 sudo docker build -t xcube:0.10.0 .
 ```
 
-Run:
+This creates an image of the server, with a configuration read from "/home/xcube/examples/serve/demo/config.yml" inside the image. To access the server on your host machine, port 8080 (localhost:8080), run:
 
 ```
 docker run -d -p 8080:8080 xcube:0.10.0
@@ -29,13 +29,13 @@ docker run -d -p 8080:8080 xcube:0.10.0
 
 **Or, if you want to send other parameters to the server**
 
-Build image:
+Build the server image by running:
 
 ```
 sudo docker build -t xcube:0.10.0 .
 ```
 
-Run:
+This creates an image of the server, with a configuration read from "/home/xcube/examples/serve/demo/config.yml" inside the image. To set the server on a different port, e.g. 8081 and access the server on your host machine, port 8081 (localhost:8081), run:
 
 ```
 docker run -d -p 8081:8081 xcube:0.10.0 /bin/bash -c "xcube serve -v --address 0.0.0.0 --port 8081 -c /home/xcube/examples/serve/demo/config.yml"

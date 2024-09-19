@@ -7,7 +7,7 @@ ARG NEW_MAMBA_USER=xcube
 ARG NEW_MAMBA_USER_ID=1000
 ARG NEW_MAMBA_USER_GID=1000
 
-ARG INSTALL_PLUGINS=1
+ARG INSTALL_PLUGINS=0
 
 ENV XCUBE_SH_VERSION=latest
 ENV XCUBE_CCI_VERSION=latest
@@ -48,7 +48,8 @@ RUN micromamba install -y -n base -f /tmp/environment.yml \
 
 # Copy files for xcube source install
 COPY --chown=$MAMBA_USER:$MAMBA_USER ./xcube /tmp/xcube
-COPY --chown=$MAMBA_USER:$MAMBA_USER ./setup.py /tmp/setup.py
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./pyproject.toml /tmp/pyproject.toml
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./README.md /tmp/README.md
 
 # Switch into /tmp to install xcube.
 WORKDIR /tmp
@@ -57,7 +58,7 @@ WORKDIR /tmp
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # Install xcube from source.
-RUN python setup.py install
+RUN pip install --no-deps .
 
 # Install our known xcube plugins.
 COPY --chown=$MAMBA_USER:$MAMBA_USER docker/install-xcube-plugin.sh ./
@@ -65,10 +66,6 @@ RUN if [[ ${INSTALL_PLUGINS} == '1' ]]; then bash install-xcube-plugin.sh xcube-
 RUN if [[ ${INSTALL_PLUGINS} == '1' ]]; then bash install-xcube-plugin.sh xcube-cci ${XCUBE_CCI_VERSION} release; fi;
 RUN if [[ ${INSTALL_PLUGINS} == '1' ]]; then bash install-xcube-plugin.sh xcube-cds ${XCUBE_CDS_VERSION} release; fi;
 RUN if [[ ${INSTALL_PLUGINS} == '1' ]]; then bash install-xcube-plugin.sh xcube-cmems ${XCUBE_CMEMS_VERSION} release; fi;
-
-# TODO: Investigate the missing rasterio in the docker build and delete the below workaround
-# Install rasterio explicitly as a workaround
-RUN micromamba install rasterio>=1.2 -c conda-forge
 
 RUN micromamba clean --all --force-pkgs-dirs --yes
 

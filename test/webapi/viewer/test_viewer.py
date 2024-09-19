@@ -1,29 +1,15 @@
-# The MIT License (MIT)
-# Copyright (c) 2023 by the xcube team and contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
 
 import os
 import unittest
-from typing import Optional, Mapping, Any
+from collections.abc import Iterable
+from collections.abc import Mapping
+from typing import Optional, Any, Union
 
 import pytest
+from xcube.core.mldataset import BaseMultiLevelDataset
 
 from xcube.core.new import new_cube
 from xcube.server.api import ApiError
@@ -35,18 +21,14 @@ STYLES_CONFIG = {
         {
             "Identifier": "SST",
             "ColorMappings": {
-                "analysed_sst": {
-                    "ValueRange": [270, 290],
-                    "ColorBar": "inferno"
-                }
-            }
+                "analysed_sst": {"ValueRange": [270, 290], "ColorBar": "inferno"}
+            },
         }
     ]
 }
 
 
 class ViewerTest(unittest.TestCase):
-
     def setUp(self) -> None:
         self.viewer: Optional[Viewer] = None
 
@@ -54,9 +36,15 @@ class ViewerTest(unittest.TestCase):
         if self.viewer is not None:
             self.viewer.stop_server()
 
-    def get_viewer(self, server_config: Optional[Mapping[str, Any]] = None) \
-            -> Viewer:
-        self.viewer = Viewer(server_config=server_config)
+    def get_viewer(
+        self,
+        server_config: Optional[Mapping[str, Any]] = None,
+        roots: Optional[Union[str, Iterable[str]]] = None,
+        max_depth: Optional[int] = None,
+    ) -> Viewer:
+        self.viewer = Viewer(
+            server_config=server_config, roots=roots, max_depth=max_depth
+        )
         return self.viewer
 
     def test_start_and_stop_server(self):
@@ -77,24 +65,79 @@ class ViewerTest(unittest.TestCase):
         result = viewer.show()  # will show viewer
         if result is not None:
             from IPython.core.display import HTML
+
             self.assertIsInstance(result, HTML)
 
     def test_no_config(self):
         viewer = self.get_viewer()
         self.assertIsInstance(viewer.server_config, dict)
-        self.assertIn("port", viewer.server_config)
-        self.assertIn("address", viewer.server_config)
-        self.assertIn("reverse_url_prefix", viewer.server_config)
+        self.assertIsInstance(viewer.server_config.get("port"), int)
+        self.assertIsInstance(viewer.server_config.get("address"), str)
+        self.assertIsInstance(viewer.server_config.get("reverse_url_prefix"), str)
 
     def test_with_config(self):
-        viewer = self.get_viewer(STYLES_CONFIG)
+        viewer = self.get_viewer({"port": 8888, **STYLES_CONFIG})
         self.assertIsInstance(viewer.server_config, dict)
-        self.assertIn("port", viewer.server_config)
-        self.assertIn("address", viewer.server_config)
-        self.assertIn("reverse_url_prefix", viewer.server_config)
-        self.assertIn("Styles", viewer.server_config)
-        self.assertEqual(STYLES_CONFIG["Styles"],
-                         viewer.server_config["Styles"])
+        # Get rid of "reverse_url_prefix" as it depends on env vars
+        # noinspection PyUnresolvedReferences
+        self.assertIsInstance(viewer.server_config.pop("reverse_url_prefix", None), str)
+        self.assertEqual(
+            {
+                "address": "0.0.0.0",
+                "port": 8888,
+                **STYLES_CONFIG,
+            },
+            viewer.server_config,
+        )
+
+    def test_with_root(self):
+        viewer = self.get_viewer({"port": 8081}, roots="data")
+        self.assertIsInstance(viewer.server_config, dict)
+        # Get rid of "reverse_url_prefix" as it depends on env vars
+        # noinspection PyUnresolvedReferences
+        self.assertIsInstance(viewer.server_config.pop("reverse_url_prefix", None), str)
+        self.assertEqual(
+            {
+                "address": "0.0.0.0",
+                "port": 8081,
+                "DataStores": [
+                    {
+                        "Identifier": "_root_0",
+                        "StoreId": "file",
+                        "StoreParams": {"max_depth": 1, "root": "data"},
+                    }
+                ],
+            },
+            viewer.server_config,
+        )
+
+    def test_with_roots(self):
+        viewer = self.get_viewer(
+            {"port": 8080}, roots=["data", "s3://xcube"], max_depth=2
+        )
+        self.assertIsInstance(viewer.server_config, dict)
+        # Get rid of "reverse_url_prefix" as it depends on env vars
+        # noinspection PyUnresolvedReferences
+        self.assertIsInstance(viewer.server_config.pop("reverse_url_prefix", None), str)
+        self.assertEqual(
+            {
+                "address": "0.0.0.0",
+                "port": 8080,
+                "DataStores": [
+                    {
+                        "Identifier": "_root_0",
+                        "StoreId": "file",
+                        "StoreParams": {"max_depth": 2, "root": "data"},
+                    },
+                    {
+                        "Identifier": "_root_1",
+                        "StoreId": "s3",
+                        "StoreParams": {"max_depth": 2, "root": "xcube"},
+                    },
+                ],
+            },
+            viewer.server_config,
+        )
 
     def test_urls(self):
         viewer = self.get_viewer()
@@ -105,13 +148,12 @@ class ViewerTest(unittest.TestCase):
 
         if not reverse_url_prefix:
             expected_server_url = f"http://localhost:{port}"
-            self.assertEqual(expected_server_url,
-                             viewer.server_url)
+            self.assertEqual(expected_server_url, viewer.server_url)
 
-            expected_viewer_url = f"{expected_server_url}/viewer/" \
-                                  f"?serverUrl={expected_server_url}"
-            self.assertEqual(expected_viewer_url,
-                             viewer.viewer_url)
+            expected_viewer_url = (
+                f"{expected_server_url}/viewer/" f"?serverUrl={expected_server_url}"
+            )
+            self.assertEqual(expected_viewer_url, viewer.viewer_url)
         else:
             self.assertIsInstance(viewer.server_url, str)
             self.assertIsInstance(viewer.viewer_url, str)
@@ -125,12 +167,12 @@ class ViewerTest(unittest.TestCase):
 
         try:
             viewer = self.get_viewer()
-            self.assertTrue(viewer.server_url.startswith(
-                "http://xcube-test-lab/proxy/"
-            ))
-            self.assertTrue(viewer.viewer_url.startswith(
-                "http://xcube-test-lab/proxy/"
-            ))
+            self.assertTrue(
+                viewer.server_url.startswith("http://xcube-test-lab/proxy/")
+            )
+            self.assertTrue(
+                viewer.viewer_url.startswith("http://xcube-test-lab/proxy/")
+            )
             self.assertTrue("/viewer/" in viewer.viewer_url)
         finally:
             if env_var_value is not None:
@@ -143,28 +185,23 @@ class ViewerTest(unittest.TestCase):
 
         # Generate identifier and get title from dataset
         ds_id_1 = viewer.add_dataset(
-            new_cube(variables={"analysed_sst": 280.},
-                     title="My SST 1"),
+            new_cube(variables={"analysed_sst": 280.0}, title="My SST 1"),
         )
         self.assertIsInstance(ds_id_1, str)
 
         # Provide identifier and title
         ds_id_2 = viewer.add_dataset(
-            new_cube(variables={"analysed_sst": 282.}),
+            new_cube(variables={"analysed_sst": 282.0}),
             ds_id="my_sst_2",
-            title="My SST 2"
+            title="My SST 2",
         )
         self.assertEqual("my_sst_2", ds_id_2)
 
         ds_config_1 = self.viewer.datasets_ctx.get_dataset_config(ds_id_1)
-        self.assertEqual({"Identifier": ds_id_1,
-                          "Title": "My SST 1"},
-                         ds_config_1)
+        self.assertEqual({"Identifier": ds_id_1, "Title": "My SST 1"}, ds_config_1)
 
         ds_config_2 = self.viewer.datasets_ctx.get_dataset_config(ds_id_2)
-        self.assertEqual({"Identifier": ds_id_2,
-                          "Title": "My SST 2"},
-                         ds_config_2)
+        self.assertEqual({"Identifier": ds_id_2, "Title": "My SST 2"}, ds_config_2)
 
         self.viewer.remove_dataset(ds_id_1)
         with pytest.raises(ApiError.NotFound):
@@ -174,38 +211,45 @@ class ViewerTest(unittest.TestCase):
         with pytest.raises(ApiError.NotFound):
             self.viewer.datasets_ctx.get_dataset_config(ds_id_2)
 
+    # Verifies https://github.com/xcube-dev/xcube/issues/1007
+    def test_add_dataset_with_slash_path(self):
+        viewer = self.get_viewer(STYLES_CONFIG)
+
+        ml_ds = BaseMultiLevelDataset(
+            new_cube(variables={"analysed_sst": 280.0}),
+            ds_id="mybucket/mysst.levels",
+        )
+        ds_id = viewer.add_dataset(ml_ds, title="My SST")
+
+        self.assertEqual("mybucket-mysst.levels", ds_id)
+
+        ds_config = self.viewer.datasets_ctx.get_dataset_config(ds_id)
+        self.assertEqual({"Identifier": ds_id, "Title": "My SST"}, ds_config)
+
     def test_add_dataset_with_style(self):
         viewer = self.get_viewer(STYLES_CONFIG)
 
         ds_id = viewer.add_dataset(
-            new_cube(variables={"analysed_sst": 280.}),
-            title="My SST",
-            style="SST"
+            new_cube(variables={"analysed_sst": 280.0}), title="My SST", style="SST"
         )
 
         ds_config = self.viewer.datasets_ctx.get_dataset_config(ds_id)
-        self.assertEqual({"Identifier": ds_id,
-                          "Title": "My SST",
-                          "Style": "SST"},
-                         ds_config)
+        self.assertEqual(
+            {"Identifier": ds_id, "Title": "My SST", "Style": "SST"}, ds_config
+        )
 
     def test_add_dataset_with_color_mapping(self):
         viewer = self.get_viewer()
 
         ds_id = viewer.add_dataset(
-            new_cube(variables={"analysed_sst": 280.}),
+            new_cube(variables={"analysed_sst": 280.0}),
             title="My SST",
             color_mappings={
-                "analysed_sst": {
-                    "ValueRange": [280., 290.],
-                    "ColorBar": "plasma"
-                }
+                "analysed_sst": {"ValueRange": [280.0, 290.0], "ColorBar": "plasma"}
             },
         )
 
         ds_config = self.viewer.datasets_ctx.get_dataset_config(ds_id)
-        self.assertEqual({"Identifier": ds_id,
-                          "Title": "My SST",
-                          "Style": ds_id},
-                         ds_config)
-
+        self.assertEqual(
+            {"Identifier": ds_id, "Title": "My SST", "Style": ds_id}, ds_config
+        )

@@ -1,5 +1,5 @@
-.. _demo configuration file: https://github.com/dcs4cop/xcube/blob/master/examples/serve/demo/config.yml
-.. _demo stores configuration file: https://github.com/dcs4cop/xcube/blob/master/examples/serve/demo/config-with-stores.yml
+.. _demo configuration file: https://github.com/dcs4cop/xcube/blob/main/examples/serve/demo/config.yml
+.. _demo stores configuration file: https://github.com/dcs4cop/xcube/blob/main/examples/serve/demo/config-with-stores.yml
 .. _Auth0: https://auth0.com/
 
 ===============
@@ -109,12 +109,12 @@ The xcube server supports xcube datasets stored as local NetCDF files, as well a
 `Zarr <https://zarr.readthedocs.io/en/stable/>`_ directories in the local file system or remote object storage.
 Remote Zarr datasets must be stored AWS S3 compatible object storage.
 
-As an example, here is the `configuration of the demo server <https://github.com/dcs4cop/xcube/blob/master/examples/serve/demo/config.yml>`_.
+As an example, here is the `configuration of the demo server <https://github.com/dcs4cop/xcube/blob/main/examples/serve/demo/config.yml>`_.
 The parts of the demo configuration file are explained in detail further down.
 
 Some hints before, which are not addressed in the server demo configuration file.
 To increase imaging performance, xcube datasets can be converted to multi-resolution pyramids using the
-:doc:`xcube_level` tool. In the configuration, the format must be set to ``'levels'``.
+:doc:`xcube_level` tool. In the configuration, the path should use the ``.levels`` extension.
 Leveled xcube datasets are configured this way:
 
 .. code-block:: yaml
@@ -253,9 +253,9 @@ must be an absolute filesystem path or a S3 path as in the example above.
 It points to a directory that is expected to contain the the viewer configuration file `config.json` 
 among other configuration resources, such as custom ``favicon.ico`` or ``logo.png``.
 The file ``config.json`` should conform to the
-[configuration JSON Schema](https://github.com/dcs4cop/xcube-viewer/blob/master/src/resources/config.schema.json). 
+[configuration JSON Schema](https://github.com/dcs4cop/xcube-viewer/blob/main/src/resources/config.schema.json).
 All its values are optional, if not provided, 
-[default values](https://github.com/dcs4cop/xcube-viewer/blob/master/src/resources/config.json) 
+[default values](https://github.com/dcs4cop/xcube-viewer/blob/main/src/resources/config.json)
 are used instead. 
 
 .. _datasets:
@@ -649,6 +649,91 @@ Both, reversed and alpha blending is possible as well and can be configured by n
           conc_chl:
             ColorBar: plasma_r_alpha
             ValueRange: [0., 24.]
+
+Colormaps may be user-defined within the configuration file, which can be configured
+in section `customcolormaps`_. The colormap can be selected by setting
+`ColorBar: my_cmap`, where `my_cmap` is the identifier of the custom defined color map.
+If the `ValueRange` is given, it overwrites the value range defined in
+`CustomColorMaps` if the color map type is continuous or stepwise, and it is ignored
+if the color map type is categorical, where a warning is raised.
+
+.. _customcolormaps:
+
+CustomColorMaps [optional]
+-----------------
+In this section, the user can customize colormaps. Xcube server supports three types
+of colormaps, namely
+
+* Continuous: Continuous color assignment, where each <value> represents a support
+  point of a color gradient.
+* Stepwise: Stepwise color mapping where values within the range of two subsequent
+  <value>s are mapped to the same color. A <color> gets associated with the first
+  <value> of each boundary range, while the last color gets ignored.
+* Categorical: Values represent unique categories or indexes that are mapped to a color.
+  The data and the <value> must be of type integer. If a category does not have a
+  <value> in the color mapping, it will be displayed as transparent. Suitable for
+  categorical datasets.
+
+
+which can be configured as shown below:
+
+.. code-block:: yaml
+
+    CustomColorMaps:
+      - Identifier: my_cmap
+        Type: categorical     # or continuous, stepwise
+        Colors:
+        - ColorEntry
+        - ...
+
+where the *ColorEntry* may have one of the following forms (in TypeScript notation):
+
+.. code-block:: javascript
+
+    type ColorEntry = ColorEntryObj | ColorEntryTuple;
+
+    interface ColorEntryObj {
+      Value: number;
+      Color: Color;
+      Label?: string;
+    }
+
+    type ColorEntryTuple = [number, Color] | [number, Color: label];
+
+    type Color = ColorName | ColorHex | ColorTuple;
+    type ColorName = <A CSS color name>;
+    type ColorHex = <A CSS color in hexdecimal form>;
+    type ColorTuple = [number, number, number] | [number, number, number, number]
+
+For example *CustomColorMaps* can look like this:
+
+.. code-block:: yaml
+    CustomColorMaps:
+      - Identifier: my_cmap
+        Type: continuous # or categorical, stepwise
+        Colors:
+          - Value: 0
+            Color: red
+            Label: low
+          - Value: 12
+            Color: "#0000FF"
+            Label: medium
+          - Value: 18
+            Color: [0, 255, 0]
+            Label: mediumhigh
+          - Value: 24
+            Color: [0, 1, 0, 0.3]
+            Label: high
+      - Identifier: cmap_bloom_risk
+        Type: categorical
+        Colors:
+          - [ 0, [0, 1, 0., 0.5], low_risk]
+          - [ 1, orange, medium_risk]
+          - [ 2, [1, 0, 0], high_risk]
+
+All colormaps defined in the `CustomColorMaps` section will be available in the xcube
+Viewer, even if they haven't been selected in the Styles section for a specific data
+variable.
 
 .. _example:
 

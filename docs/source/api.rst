@@ -14,6 +14,8 @@ Functions
 
 .. autofunction:: xcube.core.store.find_data_store_extensions
 
+.. autofunction:: xcube.core.store.list_data_store_ids
+
 .. autofunction:: xcube.core.store.get_data_store_class
 
 .. autofunction:: xcube.core.store.get_data_store_params_schema
@@ -94,6 +96,8 @@ Cube Resampling
 .. autofunction:: xcube.core.resampling.encode_grid_mapping
 
 .. autofunction:: xcube.core.resampling.rectify_dataset
+
+For implementation details refer to :doc:`rectify`.
 
 .. autofunction:: xcube.core.resampling.resample_in_space
 
@@ -201,9 +205,12 @@ Utilities
 .. autoclass:: xcube.core.gridmapping.GridMapping
     :members:
 
-.. autofunction:: xcube.core.geom.convert_geometry
+.. autofunction:: xcube.core.geom.normalize_geometry
 
 .. autoclass:: xcube.core.schema.CubeSchema
+    :members:
+
+.. autoclass:: xcube.webapi.viewer.Viewer
     :members:
 
 .. autofunction:: xcube.util.dask.new_cluster

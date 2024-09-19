@@ -27,7 +27,7 @@ from xcube.version import version
 
 
 project = 'xcube'
-copyright = '2023, Brockmann Consult GmbH'
+copyright = '2018-2024, Brockmann Consult GmbH'
 author = 'Brockmann Consult GmbH'
 
 # The full version, including alpha/beta/rc tags
@@ -41,7 +41,7 @@ doc_title = 'xcube Toolkit Documentation'
 # If your documentation needs a minimal Sphinx version, state it here.
 needs_sphinx = '1.7'
 
-# The master toctree document.
+# The main toctree document.
 master_doc = 'index'
 
 # The suffix(es) of source filenames.
@@ -59,7 +59,9 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
     'sphinx_autodoc_annotation',
+    'sphinx_markdown_tables',
     'sphinxarg.ext',
     'recommonmark',
 ]

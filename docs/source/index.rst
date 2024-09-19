@@ -1,4 +1,4 @@
-.. xcube documentation master file
+.. xcube documentation main file
 
 ============================================
 xcube - An xarray-based EO data cube toolkit
@@ -14,6 +14,7 @@ cubes from EO data.
    overview
    examples
    installation
+   howdoi
 
 .. toctree::
    :caption: User Guide
@@ -25,15 +26,17 @@ cubes from EO data.
    viewer
    dataaccess
    generator
+   plugins
 
 .. toctree::
    :caption: Other Resources
    :maxdepth: 1
 
-   cubespec
-   storeconv
-   devguide
-   plugins
+   Dataset Convention <cubespec>
+   Multi-Resolution Datasets <mldatasets>
+   Data Store Conventions <storeconv>
+   Spatial Rectification <rectify>
+   Developer Guide <devguide>
 
 
 Indices and tables

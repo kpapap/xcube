@@ -1,28 +1,12 @@
-# The MIT License (MIT)
-# Copyright (c) 2023 by the xcube team and contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
 
 
 import math
 import unittest
-from typing import Optional, List, Mapping
+from typing import Optional, List
+from collections.abc import Mapping
 
 import fsspec
 import fsspec.core
@@ -34,7 +18,6 @@ from xcube.core.subsampling import AggMethod
 
 
 class FsMultiLevelDatasetTest(unittest.TestCase):
-
     def setUp(self) -> None:
         self.dataset = new_cube(
             width=512,
@@ -42,7 +25,7 @@ class FsMultiLevelDatasetTest(unittest.TestCase):
             x_res=360 / 512,
             y_res=180 / 256,
             time_periods=1,
-            variables=dict(CHL=0.8, qflags=1)
+            variables=dict(CHL=0.8, qflags=1),
         )
 
         self.fs: fsspec.AbstractFileSystem = fsspec.core.get_filesystem_class(
@@ -60,36 +43,24 @@ class FsMultiLevelDatasetTest(unittest.TestCase):
             tile_size=256,
             use_saved_levels=False,
             base_dataset_path=None,
-            expected_files=[
-                ".zlevels",
-                "0.zarr",
-                "1.zarr",
-                "2.zarr",
-                "3.zarr"
-            ],
+            expected_files=[".zlevels", "0.zarr", "1.zarr", "2.zarr", "3.zarr"],
             expected_num_levels=4,
             expected_tile_size=[256, 256],
-            expected_agg_methods={'CHL': 'mean', 'qflags': 'first'},
+            expected_agg_methods={"CHL": "mean", "qflags": "first"},
         )
 
     def test_io_nl_4_ts_256_agg(self):
         self.assert_io_ok(
             "test.levels",
             num_levels=4,
-            agg_methods={'CHL': 'median', 'qflags': 'max'},
+            agg_methods={"CHL": "median", "qflags": "max"},
             tile_size=256,
             use_saved_levels=False,
             base_dataset_path=None,
-            expected_files=[
-                ".zlevels",
-                "0.zarr",
-                "1.zarr",
-                "2.zarr",
-                "3.zarr"
-            ],
+            expected_files=[".zlevels", "0.zarr", "1.zarr", "2.zarr", "3.zarr"],
             expected_num_levels=4,
             expected_tile_size=[256, 256],
-            expected_agg_methods={'CHL': 'median', 'qflags': 'max'},
+            expected_agg_methods={"CHL": "median", "qflags": "max"},
         )
 
     def test_io_nl_4_ts_256_base(self):
@@ -101,68 +72,61 @@ class FsMultiLevelDatasetTest(unittest.TestCase):
             tile_size=256,
             use_saved_levels=False,
             base_dataset_path="test.zarr",
-            expected_files=[
-                ".zlevels",
-                "0.link",
-                "1.zarr",
-                "2.zarr",
-                "3.zarr"
-            ],
+            expected_files=[".zlevels", "0.link", "1.zarr", "2.zarr", "3.zarr"],
             expected_num_levels=4,
             expected_tile_size=[256, 256],
-            expected_agg_methods={'CHL': 'mean', 'qflags': 'first'},
+            expected_agg_methods={"CHL": "mean", "qflags": "first"},
         )
 
     def assert_io_ok(
-            self,
-            path: str,
-            num_levels: Optional[int],
-            agg_methods: Optional[Mapping[str, AggMethod]],
-            tile_size: Optional[int],
-            use_saved_levels: bool,
-            base_dataset_path: Optional[str],
-            expected_files: List[str],
-            expected_num_levels: int,
-            expected_agg_methods: Optional[Mapping[str, AggMethod]],
-            expected_tile_size: List[int]
+        self,
+        path: str,
+        num_levels: Optional[int],
+        agg_methods: Optional[Mapping[str, AggMethod]],
+        tile_size: Optional[int],
+        use_saved_levels: bool,
+        base_dataset_path: Optional[str],
+        expected_files: list[str],
+        expected_num_levels: int,
+        expected_agg_methods: Optional[Mapping[str, AggMethod]],
+        expected_tile_size: list[int],
     ):
         fs = self.fs
-        FsMultiLevelDataset.write_dataset(self.dataset,
-                                          path,
-                                          fs=fs,
-                                          fs_root="",
-                                          replace=True,
-                                          num_levels=num_levels,
-                                          agg_methods=agg_methods,
-                                          tile_size=tile_size,
-                                          use_saved_levels=use_saved_levels,
-                                          base_dataset_path=base_dataset_path)
+        FsMultiLevelDataset.write_dataset(
+            self.dataset,
+            path,
+            fs=fs,
+            fs_root="",
+            replace=True,
+            num_levels=num_levels,
+            agg_methods=agg_methods,
+            tile_size=tile_size,
+            use_saved_levels=use_saved_levels,
+            base_dataset_path=base_dataset_path,
+        )
         self.assertTrue(fs.isdir(path))
-        self.assertEqual(set([f"/{path}/{f}" for f in expected_files]),
-                         set(fs.listdir(path, detail=False)))
+        self.assertEqual(
+            {f"/{path}/{f}" for f in expected_files},
+            set(fs.listdir(path, detail=False)),
+        )
 
         ml_dataset = FsMultiLevelDataset(path, fs=fs)
-        self.assertEquals(expected_num_levels, ml_dataset.num_levels)
-        self.assertEquals(expected_agg_methods, ml_dataset.agg_methods)
-        self.assertEquals(expected_tile_size, ml_dataset.tile_size)
-        self.assertEquals(use_saved_levels, ml_dataset.use_saved_levels)
-        self.assertEquals(base_dataset_path, ml_dataset.base_dataset_path)
-        self.assertEquals(None, ml_dataset.cache_size)
-        self.assertEquals(num_levels, len(ml_dataset.size_weights))
+        self.assertEqual(expected_num_levels, ml_dataset.num_levels)
+        self.assertEqual(expected_agg_methods, ml_dataset.agg_methods)
+        self.assertEqual(expected_tile_size, ml_dataset.tile_size)
+        self.assertEqual(use_saved_levels, ml_dataset.use_saved_levels)
+        self.assertEqual(base_dataset_path, ml_dataset.base_dataset_path)
+        self.assertEqual(None, ml_dataset.cache_size)
+        self.assertEqual(num_levels, len(ml_dataset.size_weights))
         self.assertTrue(all(ml_dataset.size_weights > 0.0))
         for i in range(num_levels):
             self.assertIsInstance(ml_dataset.get_dataset(i), xr.Dataset)
 
     def test_compute_size_weights(self):
-        size = 2 ** 28
-        weighted_sizes = list(map(
-            math.ceil, size * FsMultiLevelDataset.compute_size_weights(5)
-        ))
+        size = 2**28
+        weighted_sizes = list(
+            map(math.ceil, size * FsMultiLevelDataset.compute_size_weights(5))
+        )
         self.assertEqual(
-            [201523393,
-             50380849,
-             12595213,
-             3148804,
-             787201],
-            weighted_sizes
+            [201523393, 50380849, 12595213, 3148804, 787201], weighted_sizes
         )

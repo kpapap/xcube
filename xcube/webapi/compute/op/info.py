@@ -1,3 +1,7 @@
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
+
 import collections.abc
 import inspect
 import typing
@@ -12,7 +16,7 @@ PyType = type(type(int))
 
 # Functions registered in the operation registry will
 # receive a new attribute with this name.
-_ATTR_NAME_OP_INFO = '_op_info'
+_ATTR_NAME_OP_INFO = "_op_info"
 
 _PRIMITIVE_PY_TO_JSON_TYPES = {
     type(None): "null",
@@ -22,22 +26,21 @@ _PRIMITIVE_PY_TO_JSON_TYPES = {
     str: "string",
 }
 
-_PRIMITIVE_JSON_TO_PY_TYPES = {
-    v: k for k, v in _PRIMITIVE_PY_TO_JSON_TYPES.items()
-}
+_PRIMITIVE_JSON_TO_PY_TYPES = {v: k for k, v in _PRIMITIVE_PY_TO_JSON_TYPES.items()}
 
 
 class OpInfo:
     """Information about a compute operation"""
 
-    def __init__(self,
-                 params_schema: Dict[str, Any],
-                 param_py_types: Dict[str, PyType]):
+    def __init__(
+        self, params_schema: dict[str, Any], param_py_types: dict[str, PyType]
+    ):
         """Create information about a compute operation
 
-        :param params_schema: map of parameter names to their JSON Schema
-                              definitions
-        :param param_py_types: map of parameter names to their Python types
+        Args:
+            params_schema: map of parameter names to their JSON Schema
+                definitions
+            param_py_types: map of parameter names to their Python types
         """
         self.params_schema = params_schema
         self.param_py_types = param_py_types
@@ -48,8 +51,11 @@ class OpInfo:
         The supplied function is modified in-place (with the addition of an
         attribute referencing this information instance) and returned.
 
-        :param function: the function to associate with this information
-        :return: the same function (with an attribute added)
+        Args:
+            function: the function to associate with this information
+
+        Returns:
+            the same function (with an attribute added)
         """
         setattr(function, _ATTR_NAME_OP_INFO, self)
         return function
@@ -58,15 +64,21 @@ class OpInfo:
     def get_op_info(cls, op: Callable) -> "OpInfo":
         """Get the information object for a specified function
 
-        :param op: the function for which information is requested
-        :return: the function’s associated information object, if present
-        :raises ValueError: if there is no associated information object
-                            (i.e. the function is not an operation)
+        Args:
+            op: the function for which information is requested
+
+        Returns:
+            the function’s associated information object, if present
+
+        Raises:
+            ValueError: if there is no associated information object
+                (i.e. the function is not an operation)
         """
         op_info = getattr(op, _ATTR_NAME_OP_INFO, None)
         if not isinstance(op_info, OpInfo):
-            raise ValueError(f"function {op.__name__}() is not"
-                             f" registered as an operation")
+            raise ValueError(
+                f"function {op.__name__}() is not" f" registered as an operation"
+            )
         return op_info
 
     @classmethod
@@ -76,8 +88,11 @@ class OpInfo:
         The returned information object contains a parameter type dictionary
         and JSON schema created by analysis of the supplied function.
 
-        :param op: a function
-        :return: operation information for the supplied function
+        Args:
+            op: a function
+
+        Returns:
+            operation information for the supplied function
         """
         members = dict(inspect.getmembers(op))
         annotations = members.get("__annotations__")
@@ -86,8 +101,7 @@ class OpInfo:
         params_schema = {}
         if code:
             args = inspect.getargs(code)
-            required_param_names = set(args.args or []) \
-                .union(set(args.varargs or []))
+            required_param_names = set(args.args or []).union(set(args.varargs or []))
             optional_param_names = set(args.varkw or [])
             all_param_names = required_param_names.union(optional_param_names)
             if all_param_names:
@@ -97,23 +111,22 @@ class OpInfo:
                     if py_type is not None:
                         param_py_types[param_name] = py_type
                     if inspect.isclass(py_type):
-                        if issubclass(py_type,
-                                      (xr.Dataset, MultiLevelDataset)):
+                        if issubclass(py_type, (xr.Dataset, MultiLevelDataset)):
                             # extract function from get_effective_parameters
                             param_schema = {
                                 "type": "string",
-                                "title": "Dataset identifier"
+                                "title": "Dataset identifier",
                             }
                         else:
                             raise ValueError(
-                                f'Illegal operation parameter class {py_type}.'
-                                f' Classes must be subclasses of Dataset or '
-                                f'MultiLevelDataset.'
+                                f"Illegal operation parameter class {py_type}."
+                                f" Classes must be subclasses of Dataset or "
+                                f"MultiLevelDataset."
                             )
                     elif py_type is not None:
                         if not OpInfo._is_valid_parameter_type(py_type):
                             raise ValueError(
-                                f'Illegal operation parameter type {py_type}.'
+                                f"Illegal operation parameter type {py_type}."
                             )
                         param_schema = build_json_schema(py_type).to_dict()
                     else:
@@ -123,13 +136,12 @@ class OpInfo:
                     "type": "object",
                     "properties": properties,
                     "required": list(required_param_names),
-                    "additionalProperties": False
+                    "additionalProperties": False,
                 }
             else:
-                params_schema.update({
-                    "type": ["null", "object"],
-                    "additionalProperties": False
-                })
+                params_schema.update(
+                    {"type": ["null", "object"], "additionalProperties": False}
+                )
 
         return OpInfo(params_schema, param_py_types)
 
@@ -151,7 +163,7 @@ class OpInfo:
             return all(map(OpInfo._is_valid_parameter_type, args))
 
     @property
-    def effective_param_py_types(self) -> Dict[str, PyType]:
+    def effective_param_py_types(self) -> dict[str, PyType]:
         """Return effective Python types for the operation’s parameters
 
         For any parameter which has a Python type annotation, that type will
@@ -161,8 +173,9 @@ class OpInfo:
         as the value in the returned type dictionary. Otherwise `None` will
         be used.
 
-        :return: a dictionary mapping operation parameter names to their
-                 effective Python types
+        Returns:
+            a dictionary mapping operation parameter names to their
+            effective Python types
         """
         py_types = self.param_py_types.copy()
         for param_name, param_schema in self.param_schemas.items():
@@ -179,20 +192,21 @@ class OpInfo:
         return py_types
 
     @property
-    def param_schemas(self) -> Dict[str, Any]:
-        """
-        :return: a mapping of parameter names to their JSON schemas
+    def param_schemas(self) -> dict[str, Any]:
+        """Returns:
+        a mapping of parameter names to their JSON schemas
         """
         return self.params_schema.get("properties", {})
 
-    def set_param_schemas(self, schemas: Dict[str, Any]):
+    def set_param_schemas(self, schemas: dict[str, Any]):
         """Set JSON schemas for operation parameters
 
-        :param schemas: a mapping of parameter names to their JSON schemas
+        Args:
+            schemas: a mapping of parameter names to their JSON schemas
         """
         self.params_schema["properties"] = schemas
 
-    def update_params_schema(self, schema: Dict[str, Any]):
+    def update_params_schema(self, schema: dict[str, Any]):
         """Update the JSON schema for the whole parameters dictionary
 
         Update the existing parameter dictionary schema with the supplied
@@ -200,17 +214,19 @@ class OpInfo:
         with any schemas for the individual parameters in a sub-dictionary
         under the `properties` key.
 
-        :param schema: the schema with which to update the parameters
-                       dictionary schema
+        Args:
+            schema: the schema with which to update the parameters
+                dictionary schema
         """
         self.params_schema.update(schema)
 
-    def update_param_schema(self, param_name: str, schema: Dict[str, Any]):
+    def update_param_schema(self, param_name: str, schema: dict[str, Any]):
         """Update the JSON Schema for a single parameter
 
-        :param param_name: name of the parameter
-        :param schema: schema with which to update the parameter’s current
-                       schema
+        Args:
+            param_name: name of the parameter
+            schema: schema with which to update the parameter’s
+                current schema
         """
         param_schemas = self.param_schemas
         param_schema = param_schemas.get(param_name, {})
@@ -222,15 +238,19 @@ class OpInfo:
     def get_param_py_type(self, param_name: str) -> PyType:
         """Get the Python type for a parameter
 
-        :param param_name: name of parameter
-        :return: Python type of specified parameter
+        Args:
+            param_name: name of parameter
+
+        Returns:
+            Python type of specified parameter
         """
         return self.param_py_types[param_name]
 
     def set_param_py_type(self, param_name: str, py_type: PyType):
         """Set the Python type for a parameter
 
-        :param param_name: name of parameter
-        :param py_type: Python type of specified parameter
+        Args:
+            param_name: name of parameter
+            py_type: Python type of specified parameter
         """
         self.param_py_types[param_name] = py_type

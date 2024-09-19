@@ -1,23 +1,6 @@
-# The MIT License (MIT)
-# Copyright (c) 2022 by the xcube team and contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
 
 from xcube.util.jsonschema import JsonArraySchema
 from xcube.util.jsonschema import JsonComplexSchema
@@ -44,14 +27,11 @@ VARIABLES_SCHEMA = JsonArraySchema(
     items=IDENTIFIER_SCHEMA,
     min_items=1,
     description="Names of variables to be published."
-                " Names may use wildcard characters '*' and '?'."
-                " Also determines the order of variables."
+    " Names may use wildcard characters '*' and '?'."
+    " Also determines the order of variables.",
 )
 
-VALUE_RANGE_SCHEMA = JsonArraySchema(items=[
-    JsonNumberSchema(),
-    JsonNumberSchema()
-])
+VALUE_RANGE_SCHEMA = JsonArraySchema(items=[JsonNumberSchema(), JsonNumberSchema()])
 
 AUGMENTATION_SCHEMA = JsonObjectSchema(
     properties=dict(
@@ -63,8 +43,8 @@ AUGMENTATION_SCHEMA = JsonObjectSchema(
         ),
     ),
     required=[
-        'Path',
-        'Function',
+        "Path",
+        "Function",
     ],
     additional_properties=False,
 )
@@ -72,13 +52,15 @@ AUGMENTATION_SCHEMA = JsonObjectSchema(
 ACCESS_CONTROL_SCHEMA = JsonObjectSchema(
     properties=dict(
         IsSubstitute=BOOLEAN_SCHEMA,
-        RequiredScopes=JsonArraySchema(items=IDENTIFIER_SCHEMA)
+        RequiredScopes=JsonArraySchema(items=IDENTIFIER_SCHEMA),
     ),
     additional_properties=False,
 )
 
 COMMON_DATASET_PROPERTIES = dict(
     Title=STRING_SCHEMA,
+    GroupTitle=STRING_SCHEMA,
+    Tags=JsonArraySchema(items=STRING_SCHEMA),
     Variables=VARIABLES_SCHEMA,
     TimeSeriesDataset=IDENTIFIER_SCHEMA,
     BoundingBox=GEO_BOUNDING_BOX_SCHEMA,
@@ -88,7 +70,7 @@ COMMON_DATASET_PROPERTIES = dict(
     Hidden=BOOLEAN_SCHEMA,
     AccessControl=ACCESS_CONTROL_SCHEMA,
     PlaceGroups=JsonArraySchema(items=PLACE_GROUP_SCHEMA),
-    Attribution=ATTRIBUTION_SCHEMA
+    Attribution=ATTRIBUTION_SCHEMA,
 )
 
 DATASET_CONFIG_SCHEMA = JsonObjectSchema(
@@ -106,23 +88,18 @@ DATASET_CONFIG_SCHEMA = JsonObjectSchema(
         InputParameters=JsonObjectSchema(additional_properties=True),
         **COMMON_DATASET_PROPERTIES,
     ),
-    required=[
-        'Identifier',
-        'Path'
-    ],
+    required=["Identifier", "Path"],
     additional_properties=False,
 )
 
 DATA_STORE_DATASET_SCHEMA = JsonObjectSchema(
-    required=[
-        'Path'
-    ],
+    required=["Path"],
     properties=dict(
         Identifier=IDENTIFIER_SCHEMA,
         Path=PATH_SCHEMA,
         StoreInstanceId=IDENTIFIER_SCHEMA,  # will be set by server
         StoreOpenParams=JsonObjectSchema(additional_properties=True),
-        **COMMON_DATASET_PROPERTIES
+        **COMMON_DATASET_PROPERTIES,
     ),
     additional_properties=False,
 )
@@ -135,19 +112,16 @@ DATA_STORE_SCHEMA = JsonObjectSchema(
         Datasets=JsonArraySchema(items=DATA_STORE_DATASET_SCHEMA),
     ),
     required=[
-        'Identifier',
-        'StoreId',
+        "Identifier",
+        "StoreId",
     ],
     additional_properties=False,
 )
 
 COLOR_MAPPING_EXPLICIT_SCHEMA = JsonObjectSchema(
-    properties=dict(
-        ColorBar=STRING_SCHEMA,
-        ValueRange=VALUE_RANGE_SCHEMA
-    ),
+    properties=dict(ColorBar=STRING_SCHEMA, ValueRange=VALUE_RANGE_SCHEMA),
     required=[],
-    additional_properties=False
+    additional_properties=False,
 )
 
 COLOR_MAPPING_BY_PATH_SCHEMA = JsonObjectSchema(
@@ -157,27 +131,23 @@ COLOR_MAPPING_BY_PATH_SCHEMA = JsonObjectSchema(
     required=[
         "ColorFile",
     ],
-    additional_properties=False
+    additional_properties=False,
 )
 
-COLOR_MAPPING_SCHEMA = JsonComplexSchema(one_of=[
-    COLOR_MAPPING_EXPLICIT_SCHEMA,
-    COLOR_MAPPING_BY_PATH_SCHEMA,
-])
+COLOR_MAPPING_SCHEMA = JsonComplexSchema(
+    one_of=[
+        COLOR_MAPPING_EXPLICIT_SCHEMA,
+        COLOR_MAPPING_BY_PATH_SCHEMA,
+    ]
+)
 
 CHANNEL_MAPPING_SCHEMA = JsonObjectSchema(
     properties=dict(
-        ValueRange=JsonArraySchema(items=[
-            JsonNumberSchema(),
-            JsonNumberSchema()
-        ]),
-        Variable=STRING_SCHEMA
+        ValueRange=JsonArraySchema(items=[JsonNumberSchema(), JsonNumberSchema()]),
+        Variable=STRING_SCHEMA,
     ),
-    required=[
-        "ValueRange",
-        "Variable"
-    ],
-    additional_properties=False
+    required=["ValueRange", "Variable"],
+    additional_properties=False,
 )
 
 RGB_MAPPING_SCHEMA = JsonObjectSchema(
@@ -191,24 +161,71 @@ RGB_MAPPING_SCHEMA = JsonObjectSchema(
         "Green",
         "Blue",
     ],
-    additional_properties=False
+    additional_properties=False,
 )
 
 STYLE_SCHEMA = JsonObjectSchema(
     properties=dict(
         Identifier=STRING_SCHEMA,
         ColorMappings=JsonObjectSchema(
-            properties=dict(
-                rgb=RGB_MAPPING_SCHEMA
-            ),
-            additional_properties=COLOR_MAPPING_SCHEMA
-        )
+            properties=dict(rgb=RGB_MAPPING_SCHEMA),
+            additional_properties=COLOR_MAPPING_SCHEMA,
+        ),
     ),
     required=[
-        'Identifier',
-        'ColorMappings',
+        "Identifier",
+        "ColorMappings",
     ],
-    additional_properties=False
+    additional_properties=False,
+)
+
+COLOR_SCHEMA = JsonComplexSchema(
+    one_of=[
+        STRING_SCHEMA,
+        JsonArraySchema(
+            items=JsonNumberSchema(minimum=0, maximum=255), min_items=3, max_items=4
+        ),
+    ]
+)
+
+CUSTOM_COLOR_ENTRY_SCHEMA = JsonObjectSchema(
+    properties=dict(
+        Value=JsonNumberSchema(),
+        Color=COLOR_SCHEMA,
+        Label=STRING_SCHEMA,
+    ),
+    required=["Value", "Color"],
+    additional_properties=False,
+)
+
+CUSTOM_COLOR_LIST_SCHEMA = JsonComplexSchema(
+    one_of=[
+        JsonArraySchema(
+            items=[JsonNumberSchema(), COLOR_SCHEMA], min_items=2, max_items=2
+        ),
+        JsonArraySchema(
+            items=[JsonNumberSchema(), COLOR_SCHEMA, STRING_SCHEMA],
+            min_items=3,
+            max_items=3,
+        ),
+    ]
+)
+
+CUSTOM_COLORS_SCHEMA = JsonComplexSchema(
+    one_of=[
+        CUSTOM_COLOR_ENTRY_SCHEMA,
+        CUSTOM_COLOR_LIST_SCHEMA,
+    ]
+)
+
+CUSTOM_COLORMAP_SCHEMA = JsonObjectSchema(
+    properties=dict(
+        Identifier=STRING_SCHEMA,
+        Type=STRING_SCHEMA,
+        Colors=JsonArraySchema(items=CUSTOM_COLORS_SCHEMA, min_items=1),
+    ),
+    required=["Identifier", "Type", "Colors"],
+    additional_properties=False,
 )
 
 SERVICE_PROVIDER_SCHEMA = JsonObjectSchema(
@@ -223,6 +240,7 @@ CONFIG_SCHEMA = JsonObjectSchema(
         Datasets=JsonArraySchema(items=DATASET_CONFIG_SCHEMA),
         DataStores=JsonArraySchema(items=DATA_STORE_SCHEMA),
         Styles=JsonArraySchema(items=STYLE_SCHEMA),
+        CustomColorMaps=JsonArraySchema(items=CUSTOM_COLORMAP_SCHEMA),
         ServiceProvider=SERVICE_PROVIDER_SCHEMA,
     )
 )

@@ -1,4 +1,4 @@
-[xcube.core.store]: https://github.com/dcs4cop/xcube/tree/master/xcube/core/store
+[xcube.core.store]: https://github.com/dcs4cop/xcube/tree/main/xcube/core/store
 [xcube Dataset Convention]: ./cubespec.md
 [xcube Multi-Level Dataset Convention]: ./mldatasets.md
 [xcube Data Store Conventions]: ./storeconv.md
@@ -189,7 +189,7 @@ system or data type. Some data stores may also provide vector data.
 
 For every data store we also provide a dedicated example Notebook that 
 demonstrates its specific usage in 
-[examples/notebooks/datastores](https://github.com/dcs4cop/xcube/tree/master/examples/notebooks/datastores).
+[examples/notebooks/datastores](https://github.com/dcs4cop/xcube/tree/main/examples/notebooks/datastores).
 
 ### Filesystem-based data stores
 
@@ -459,6 +459,13 @@ in the package's `plugin` module (hence `{package}.plugin.init_plugin()`).
 Alternatively, the package can have any name, but then it must register 
 a [setuptools entry point] in the slot "xcube_plugins". In this case the 
 function `init_plugin()` can also be placed anywhere in your code.
+
+If you use `pyproject.toml`:
+```
+[project.entry-points.xcube_plugins]
+{your_name} = "{your_name}.plugin:init_plugin"
+```
+
 If you use `setup.cfg`:
 
 ```
@@ -467,7 +474,7 @@ xcube_plugins =
     {your_name} = {your_package}.plugin:init_plugin
 ```
 
-If you are (still) using `setup.py`:
+If you use `setup.py`:
 
 ```python
 from setuptools import setup

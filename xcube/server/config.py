@@ -1,27 +1,11 @@
-# The MIT License (MIT)
-# Copyright (c) 2022 by the xcube team and contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
 
 import os.path
 from functools import cache
-from typing import Mapping, Any, Optional
+from typing import Any, Optional
+from collections.abc import Mapping
 
 from xcube.constants import DEFAULT_SERVER_ADDRESS
 from xcube.constants import DEFAULT_SERVER_PORT
@@ -33,69 +17,57 @@ from xcube.util.jsonschema import JsonStringSchema
 
 BASE_SERVER_CONFIG_SCHEMA = JsonObjectSchema(
     properties=dict(
-        port=JsonIntegerSchema(
-            title='Server port.',
-            default=DEFAULT_SERVER_PORT
-        ),
+        port=JsonIntegerSchema(title="Server port.", default=DEFAULT_SERVER_PORT),
         address=JsonStringSchema(
-            title='Server address.',
-            default=DEFAULT_SERVER_ADDRESS
+            title="Server address.", default=DEFAULT_SERVER_ADDRESS
         ),
         base_dir=JsonStringSchema(
-            title='Base directory used to resolve relative local paths.'
-                  ' Can be a local filesystem path or an absolute URL.',
+            title="Base directory used to resolve relative local paths."
+            " Can be a local filesystem path or an absolute URL.",
         ),
         url_prefix=JsonStringSchema(
-            title='Prefix to be prepended to all URL route paths.'
-                  ' Can be an absolute URL or a relative URL path.',
+            title="Prefix to be prepended to all URL route paths."
+            " Can be an absolute URL or a relative URL path.",
         ),
         reverse_url_prefix=JsonStringSchema(
-            title='Prefix to be prepended to reverse URL paths'
-                  ' returned by server responses.'
-                  ' Can be an absolute URL or a relative URL path.',
+            title="Prefix to be prepended to reverse URL paths"
+            " returned by server responses."
+            " Can be an absolute URL or a relative URL path.",
         ),
         trace_perf=JsonBooleanSchema(
-            title='Output performance measures',
+            title="Output performance measures",
         ),
         static_routes=JsonArraySchema(
-            title='Static content routes',
+            title="Static content routes",
             items=JsonObjectSchema(
                 properties=dict(
-                    path=JsonStringSchema(
-                        title='The URL path',
-                        min_length=1
-                    ),
+                    path=JsonStringSchema(title="The URL path", min_length=1),
                     dir_path=JsonStringSchema(
-                        title='A local directory path',
-                        min_length=1
+                        title="A local directory path", min_length=1
                     ),
                     default_filename=JsonStringSchema(
-                        title='Optional default filename',
-                        examples=['index.html'],
-                        min_length=1
+                        title="Optional default filename",
+                        examples=["index.html"],
+                        min_length=1,
                     ),
                     openapi_metadata=JsonObjectSchema(
-                        title='Optional OpenAPI operation metadata',
-                        additional_properties=True
+                        title="Optional OpenAPI operation metadata",
+                        additional_properties=True,
                     ),
                 ),
-                required=['path', 'dir_path'],
-                additional_properties=False
-            )
+                required=["path", "dir_path"],
+                additional_properties=False,
+            ),
         ),
         api_spec=JsonObjectSchema(
-            title='API specification',
-            description='selected = (includes | ALL) - (excludes | NONE)',
+            title="API specification",
+            description="selected = (includes | ALL) - (excludes | NONE)",
             properties=dict(
-                includes=JsonArraySchema(
-                    JsonStringSchema(min_length=1)
-                ),
-                excludes=JsonArraySchema(
-                    JsonStringSchema(min_length=1)
-                ),
+                includes=JsonArraySchema(JsonStringSchema(min_length=1)),
+                excludes=JsonArraySchema(JsonStringSchema(min_length=1)),
             ),
-            additional_properties=False
-        )
+            additional_properties=False,
+        ),
     ),
     # We allow for other configuration settings contributed
     # by APIs. If these APIs are currently not in use,
@@ -106,20 +78,18 @@ BASE_SERVER_CONFIG_SCHEMA = JsonObjectSchema(
 
 @cache
 def normalize_base_dir(base_dir: Optional[str]) -> str:
-    """Normalize the given base directory *base_dir*.
-    """
+    """Normalize the given base directory *base_dir*."""
     if base_dir is None:
         base_dir = os.path.abspath("")
     elif not is_absolute_path(base_dir):
         base_dir = os.path.abspath(base_dir)
-    while base_dir != '/' and base_dir.endswith('/'):
+    while base_dir != "/" and base_dir.endswith("/"):
         base_dir = base_dir[:-1]
     return base_dir
 
 
 def get_base_dir(config: Mapping[str, Any]) -> str:
-    """Get the normalized base directory from configuration *config*.
-    """
+    """Get the normalized base directory from configuration *config*."""
     return normalize_base_dir(config.get("base_dir"))
 
 
@@ -182,34 +152,36 @@ def _remove_path_dot_segments(path: str) -> str:
 
 
 def is_absolute_path(path: str) -> bool:
-    """Test whether *path* is an absolute filesystem path or URL.
-    """
+    """Test whether *path* is an absolute filesystem path or URL."""
     # This is a rather weak test, may be enhanced if desired
-    return "//" in path \
-           or ":" in path \
-           or path.startswith("/")
+    return "//" in path or ":" in path or path.startswith("/")
 
 
 def get_url_prefix(config: Mapping[str, Any]) -> str:
     """Get the sanitized URL prefix so, if given, it starts with
     a leading slash and ends without one.
 
-    :param config: Server configuration.
-    :return: Sanitized URL prefix, may be an empty string.
+    Args:
+        config: Server configuration.
+
+    Returns:
+        Sanitized URL prefix, may be an empty string.
     """
-    return _sanitize_url_prefix(config.get('url_prefix'))
+    return _sanitize_url_prefix(config.get("url_prefix"))
 
 
 def get_reverse_url_prefix(config: Mapping[str, Any]) -> str:
     """Get the sanitized reverse URL prefix so, if given, it starts with
     a leading slash and ends without one.
 
-    :param config: Server configuration.
-    :return: Sanitized URL prefix, may be an empty string.
+    Args:
+        config: Server configuration.
+
+    Returns:
+        Sanitized URL prefix, may be an empty string.
     """
     return _sanitize_url_prefix(
-        config.get('reverse_url_prefix',
-                   config.get('url_prefix'))
+        config.get("reverse_url_prefix", config.get("url_prefix"))
     )
 
 
@@ -217,23 +189,28 @@ def _sanitize_url_prefix(url_prefix: Optional[str]) -> str:
     """Get a sanitized URL prefix so, if given, it starts with
     a leading slash and ends without one.
 
-    :param url_prefix: URL prefix path.
-    :return: Sanitized URL prefix path, may be an empty string.
+    Args:
+        url_prefix: URL prefix path.
+
+    Returns:
+        Sanitized URL prefix path, may be an empty string.
     """
     if not url_prefix:
-        return ''
+        return ""
 
-    while url_prefix.startswith('//'):
+    while url_prefix.startswith("//"):
         url_prefix = url_prefix[1:]
-    while url_prefix.endswith('/'):
+    while url_prefix.endswith("/"):
         url_prefix = url_prefix[:-1]
 
-    if url_prefix == '':
-        return ''
+    if url_prefix == "":
+        return ""
 
-    if url_prefix.startswith('/') \
-            or url_prefix.startswith('http://') \
-            or url_prefix.startswith('https://'):
+    if (
+        url_prefix.startswith("/")
+        or url_prefix.startswith("http://")
+        or url_prefix.startswith("https://")
+    ):
         return url_prefix
 
-    return '/' + url_prefix
+    return "/" + url_prefix

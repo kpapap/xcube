@@ -1,73 +1,59 @@
-# The MIT License (MIT)
-# Copyright (c) 2023 by the xcube team and contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# Copyright (c) 2018-2024 by xcube team and contributors
+# Permissions are hereby granted under the terms of the MIT License:
+# https://opensource.org/licenses/MIT.
 
 from ...helpers import RoutesTestCase
 
 from xcube.webapi.ows.coverages.routes import PATH_PREFIX
+_COVERAGE_PREFIX = PATH_PREFIX + "/collections/demo/coverage"
 
 
 class CoveragesRoutesTest(RoutesTestCase):
-    def test_fetch_coverage(self):
+    def test_fetch_coverage_json(self):
         response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage?f=application/json'
+            _COVERAGE_PREFIX + "?f=application/json"
         )
         self.assertResponseOK(response)
 
     def test_fetch_coverage_html(self):
         response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage',
+            _COVERAGE_PREFIX + "",
             headers=dict(
-                Accept='text/nonexistent,application/json;q=0.9,text/html;q=1.0'
+                Accept="text/nonexistent,application/json;q=0.9,text/html;q=1.0"
             ),
         )
         self.assertResponseOK(response)
-        self.assertEqual('text/html', response.headers['Content-Type'])
+        self.assertEqual("text/html", response.headers["Content-Type"])
+
+    def test_fetch_coverage_netcdf(self):
+        response = self.fetch(
+            _COVERAGE_PREFIX + "?f=application/netcdf"
+        )
+        self.assertResponseOK(response)
+        self.assertEqual(
+            "50.00125,0.00125,52.49875,4.99875", response.headers["Content-Bbox"]
+        )
+        self.assertEqual("[EPSG:4326]", response.headers["Content-Crs"])
 
     def test_fetch_coverage_wrong_media_type(self):
         response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage',
-            headers=dict(Accept='text/nonexistent'),
+            _COVERAGE_PREFIX,
+            headers=dict(Accept="text/nonexistent"),
         )
         self.assertEqual(response.status, 415)
 
     def test_fetch_domainset(self):
-        response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage/domainset'
-        )
+        response = self.fetch(_COVERAGE_PREFIX + "/domainset")
         self.assertResponseOK(response)
 
     def test_fetch_rangetype(self):
-        response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage/rangetype'
-        )
+        response = self.fetch(_COVERAGE_PREFIX + "/rangetype")
         self.assertResponseOK(response)
 
     def test_fetch_metadata(self):
-        response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage/metadata'
-        )
+        response = self.fetch(_COVERAGE_PREFIX + "/metadata")
         self.assertResponseOK(response)
 
     def test_fetch_rangeset(self):
-        response = self.fetch(
-            PATH_PREFIX + '/collections/demo/coverage/rangeset'
-        )
+        response = self.fetch(_COVERAGE_PREFIX + "/rangeset")
         self.assertEqual(response.status, 405)

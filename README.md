@@ -49,10 +49,18 @@ Go to e.g.
 http://localhost:8080/viewer
 ```
 
-# Access API
+# Access Web JSON
 
 Go to e.g.
 
 ```
 http://localhost:8080
+```
+
+# Access Web API
+
+Go to e.g.
+
+```
+http://localhost:8080/openapi.html
 ```

@@ -13,14 +13,31 @@ It is based on popular data science packages such as
 
 Find out more in the [xcube Documentation](https://xcube.readthedocs.io).
 
+# Working docker file:
+
 Build image:
 
 ```
 sudo docker build -t xcube:0.10.0 .
 ```
 
-Run image:
+Run:
 
 ```
 docker run -d -p 8080:8080 xcube:0.10.0
 ```
+
+**OR**
+Build image:
+
+```
+sudo docker build -t xcube:0.10.0 .
+```
+
+Run:
+
+```
+docker run -d -p 8081:8081 xcube:0.10.0 /bin/bash -c "xcube serve -v --address 0.0.0.0 --port 8081 -c /home/xcube/examples/serve/demo/config.yml"
+```
+
+to bypass the CMD

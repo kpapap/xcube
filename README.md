@@ -8,7 +8,19 @@
 
 xcube is a Python toolkit for managing geospatial data cubes.
 
-It is based on popular data science packages such as 
+It is based on popular data science packages such as
 [xarray](http://xarray.pydata.org/), [Zarr](https://zarr.readthedocs.io/), and [Dask](https://dask.org/).
 
 Find out more in the [xcube Documentation](https://xcube.readthedocs.io).
+
+Build image:
+
+```
+sudo docker build -t xcube:0.10.0 .
+```
+
+Run image:
+
+```
+docker run -d -p 8080:8080 xcube:0.10.0
+```

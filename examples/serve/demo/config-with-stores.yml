@@ -19,7 +19,7 @@ DataStores:
     #         Style: "default"
 
     - Identifier: eo4natura
-      StoreId: eo4natura_s3
+      StoreId: s3
       StoreParams:
           root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
           max_depth: 1

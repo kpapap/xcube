@@ -98,46 +98,46 @@ Styles:
     - Identifier: S2L2A
       ColorMappings:
           B01:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
-          B02:
-              ColorBar: "bone"
+          B02_md:
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
-          B03:
-              ColorBar: "bone"
+          B03_md:
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
-          B04:
-              ColorBar: "bone"
+          B04_md:
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B05:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B06:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B07:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B08:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B8A:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B09:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B10:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B11:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           B12:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0., 0.25]
           SCL:
-              ColorBar: "bone"
+              ColorBar: "gray"
               ValueRange: [0, 255]
           rgb:
               Red:
@@ -149,6 +149,9 @@ Styles:
               Blue:
                   Variable: B08
                   ValueRange: [0., 0.25]
+          ndvi:
+              ColorBar: "delta"
+              ValueRange: [-1., 1.]
 
 ServiceProvider:
     ProviderName: "Brockmann Consult GmbH"

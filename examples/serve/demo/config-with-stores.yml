@@ -1,7 +1,7 @@
 DatasetAttribution:
     - "© by Synergise Inc. and ESA"
 
-DatasetChunkCacheSize: 100M
+DatasetChunkCacheSize: 250M
 
 DataStores:
     # # This section needs to be kept, because it is part of xcube server documentation using DataStores.
@@ -30,10 +30,29 @@ DataStores:
               # client_kwargs:
               #  endpoint_url: https://s3.eu-central-1.amazonaws.com
       Datasets:
-          - Path: "*.zarr"
-            Style: "S2L2A"
+          - Identifier: eo4natura_s3_1
+            Title: Datacube 01 3Is Streched March 2023
+            # BoundingBox: [0.0, 50, 5.0, 52.5]
+            Path: "cube_3Is_streched_2023-03-01_2023-03-30.zarr"
+            Style: S2L2A
+            ChunkCacheSize: 250M
+            # PlaceGroups:
+            #     - PlaceGroupRef: inside-cube
+            #     - PlaceGroupRef: outside-cube
+            # AccessControl:
+            #     IsSubstitute: True
+          - Identifier: eo4natura_s3_2
+            Title: Datacube 02 3Is Streched October 2023
+            # BoundingBox: [0.0, 50, 5.0, 52.5]
+            Path: "cube_3Is_streched_2023-10-01_2023-10-30.zarr"
+            Style: S2L2A
+            ChunkCacheSize: 250M
+            # PlaceGroups:
+            #     - PlaceGroupRef: inside-cube
+            #     - PlaceGroupRef: outside-cube
+            # AccessControl:
+            #     IsSubstitute: True
 
-    # - Identifier: sentinelhub
     #   StoreId: sentinelhub
     #   StoreParams:
     #       # Pass here or as env vars SH_CLIENT_ID, SH_CLIENT_SECRET

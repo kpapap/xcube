@@ -97,13 +97,12 @@ Datasets:
       Region: "us-west-2"
       Anonymous: false
       Style: default
-      ChunkCacheSize: 100M
+      ChunkCacheSize: 250M
       # PlaceGroups:
       #     - PlaceGroupRef: inside-cube
       #     - PlaceGroupRef: outside-cube
-      # AccessControl:
-      #     RequiredScopes:
-      #         - read:datasets
+      AccessControl:
+          IsSubstitute: True
 
     - Identifier: eo4natura_s3_2
       Title: Title cube_3Is_streched_2023-10-01_2023-10-30
@@ -114,13 +113,12 @@ Datasets:
       Region: "us-west-2"
       Anonymous: false
       Style: default
-      ChunkCacheSize: 100M
+      ChunkCacheSize: 250M
       # PlaceGroups:
       #     - PlaceGroupRef: inside-cube
       #     - PlaceGroupRef: outside-cube
-      # AccessControl:
-      #     RequiredScopes:
-      #         - read:datasets
+      AccessControl:
+          IsSubstitute: True
 
     # Will only appear for unauthorized clients
     - Identifier: local_1w

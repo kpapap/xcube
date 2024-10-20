@@ -6,10 +6,10 @@ DatasetChunkCacheSize: 250M
 ## You may want to specify a location of your server resources.
 #base_dir: s3://<bucket>/<path-to-your>/<resources>/
 
-## You may want to specify a remote location of your viewer resources.
-# Viewer:
-#     Configuration:
-#         Path: https://eo4naturabucketpublic.s3.us-west-2.amazonaws.com/config.json
+# You may want to specify a remote location of your viewer resources.
+#Viewer:
+#  Configuration:
+#    Path: s3://<bucket>/<path-to-your-viewer>/<resources>
 
 DataStores:
     # # This section needs to be kept, because it is part of xcube server documentation using DataStores.
@@ -47,6 +47,21 @@ DataStores:
             #     - PlaceGroupRef: outside-cube
             # AccessControl:
             #     IsSubstitute: True
+
+PlaceGroups:
+    - Identifier: inside-cube
+      Title: Places inside the cube
+      Path: places/inside-cube.geojson
+      Join:
+          Property: ID
+          Path: places/inside-cube-media.geojson
+      PropertyMapping:
+          image: ${resolve_config_path("images/inside-cube/${image}")}
+    - Identifier: outside-cube
+      Title: Places outside the cube
+      Path: places/outside-cube.geojson
+      PropertyMapping:
+          image: ${resolve_config_path("images/outside-cube/${ID}.jpg")}
 
 Styles:
     - Identifier: S2L2A

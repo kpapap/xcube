@@ -9,7 +9,7 @@ DatasetChunkCacheSize: 250M
 ## You may want to specify a remote location of your viewer resources.
 # Viewer:
 #     Configuration:
-#         Path: /home/xcube/examples/serve/demo/config.json
+#         Path: https://eo4naturabucketpublic.s3.us-west-2.amazonaws.com/config.json
 
 DataStores:
     # # This section needs to be kept, because it is part of xcube server documentation using DataStores.

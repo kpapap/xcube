@@ -88,18 +88,33 @@ Datasets:
     #    AccessControl:
     #      RequiredScopes:
     #        - read:datasets
-    - Identifier: eo4natura_s3
-      Title: Title eo4natura_s3
-      BoundingBox: [0.0, 50, 5.0, 52.5]
+    - Identifier: eo4natura_s3_1
+      Title: Title cube_3Is_streched_2023-03-01_2023-03-30
+      #   BoundingBox: [0.0, 50, 5.0, 52.5]
       FileSystem: s3
-      Endpoint: "s3://eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr/"
-      Path: "*.zarr"
+      Endpoint: "AWS_ENDPOINT"
+      Path: "cube_3Is_streched_2023-03-01_2023-03-30.zarr"
       Region: "us-west-2"
       Anonymous: false
-      Key:
-      Secret:
       Style: default
-      ChunkCacheSize: 250M
+      ChunkCacheSize: 100M
+      # PlaceGroups:
+      #     - PlaceGroupRef: inside-cube
+      #     - PlaceGroupRef: outside-cube
+      # AccessControl:
+      #     RequiredScopes:
+      #         - read:datasets
+
+    - Identifier: eo4natura_s3_2
+      Title: Title cube_3Is_streched_2023-10-01_2023-10-30
+      #   BoundingBox: [0.0, 50, 5.0, 52.5]
+      FileSystem: s3
+      Endpoint: "AWS_ENDPOINT"
+      Path: "cube_3Is_streched_2023-10-01_2023-10-30.zarr"
+      Region: "us-west-2"
+      Anonymous: false
+      Style: default
+      ChunkCacheSize: 100M
       # PlaceGroups:
       #     - PlaceGroupRef: inside-cube
       #     - PlaceGroupRef: outside-cube

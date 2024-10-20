@@ -92,7 +92,7 @@ Datasets:
       Title: Title cube_3Is_streched_2023-03-01_2023-03-30
       #   BoundingBox: [0.0, 50, 5.0, 52.5]
       FileSystem: s3
-      Endpoint: "AWS_ENDPOINT"
+      Endpoint: "${AWS_ENDPOINT}"
       Path: "cube_3Is_streched_2023-03-01_2023-03-30.zarr"
       Region: "us-west-2"
       Anonymous: false
@@ -109,7 +109,7 @@ Datasets:
       Title: Title cube_3Is_streched_2023-10-01_2023-10-30
       #   BoundingBox: [0.0, 50, 5.0, 52.5]
       FileSystem: s3
-      Endpoint: "AWS_ENDPOINT"
+      Endpoint: "${AWS_ENDPOINT}"
       Path: "cube_3Is_streched_2023-10-01_2023-10-30.zarr"
       Region: "us-west-2"
       Anonymous: false

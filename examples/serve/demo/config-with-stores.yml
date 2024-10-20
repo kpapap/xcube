@@ -25,8 +25,8 @@ DataStores:
           max_depth: 1
           storage_options:
               anon: false
-              key: AWS_ACCESS_KEY_ID
-              secret: AWS_SECRET_ACCESS_KEY
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
               # client_kwargs:
               #  endpoint_url: https://s3.eu-central-1.amazonaws.com
       Datasets:

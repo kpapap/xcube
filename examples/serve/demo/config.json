@@ -1,0 +1,28 @@
+{
+    "name": "default",
+    "server": {
+        "id": "eo4natura",
+        "name": "eo4natura Server",
+        "url": "http://localhost:80"
+    },
+    "branding": {
+        "appBarTitle": "eo4natura Viewer",
+        "windowTitle": "eo4natura Viewer",
+        "windowIcon": null,
+        "compact": false,
+        "themeName": "light",
+        "primaryColor": "blue",
+        "secondaryColor": "pink",
+        "organisationUrl": "https://xcube.readthedocs.io/",
+        "logoImage": "images/logo.png",
+        "logoWidth": 32,
+        "baseMapUrl": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "defaultAgg": "mean",
+        "polygonFillOpacity": 0.2,
+        "mapProjection": "EPSG:3857",
+        "allowDownloads": true,
+        "allowRefresh": true,
+        "allowUserVariables": true,
+        "allow3D": true
+    }
+}

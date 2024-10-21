@@ -87,7 +87,7 @@ Styles:
           B07:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
-          B08:
+          B08_md:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
           B8A:
@@ -110,13 +110,13 @@ Styles:
               ValueRange: [0, 255]
           rgb:
               Red:
-                  Variable: B04
+                  Variable: B04_md
                   ValueRange: [0., 0.25]
               Green:
-                  Variable: B06
+                  Variable: B03_md
                   ValueRange: [0., 0.25]
               Blue:
-                  Variable: B08
+                  Variable: B02_md
                   ValueRange: [0., 0.25]
           ndvi:
               ColorBar: "delta"

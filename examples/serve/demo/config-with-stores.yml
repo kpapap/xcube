@@ -51,7 +51,7 @@ DataStores:
       StoreId: s3
       StoreParams:
           root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/
-          max_depth: 1
+          max_depth: 2
           storage_options:
               anon: false
               key: ${AWS_ACCESS_KEY_ID}

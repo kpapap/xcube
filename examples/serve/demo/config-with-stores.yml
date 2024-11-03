@@ -90,13 +90,11 @@ DataStores:
           - Identifier: cog_local
             Title: COG example
             GroupTitle: GeoTIFF
-            FileSystem: file
             Path: sample-cog.tif
             Style: tif_style
           - Identifier: geotiff_local
             Title: GeoTIFF example
             GroupTitle: GeoTIFF
-            FileSystem: file
             Path: sample-geotiff.tif
             Style: tif_style
 

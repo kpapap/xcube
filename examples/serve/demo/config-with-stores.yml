@@ -50,18 +50,30 @@ DataStores:
     - Identifier: eo4natura-tif
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/
-          max_depth: 2
+          root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/20240608/
+          max_depth: 1
           storage_options:
               anon: false
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
           - Identifier: eo4natura_s3_3
-            Title: Datacube 20240608 cogs-tifs
+            Title: Datacube 20240608 cogs-tifs B02md
             GroupTitle: Tif
             # BoundingBox: [0.0, 50, 5.0, 52.5]
-            Path: "*.tif"
+            Path: "S2_L2A_median_2024060820240913_EU010M_E058N008T1_B02_md.tif"
+            Style: S2L2A
+            ChunkCacheSize: 250M
+            # PlaceGroups:
+            #     - PlaceGroupRef: inside-cube
+            #     - PlaceGroupRef: outside-cube
+            # AccessControl:
+            #     IsSubstitute: True
+          - Identifier: eo4natura_s3_4
+            Title: Datacube 20240608 cogs-tifs B02md
+            GroupTitle: Tif
+            # BoundingBox: [0.0, 50, 5.0, 52.5]
+            Path: "S2_L2A_median_2024060820240913_EU010M_E058N008T1_ndvi.tif"
             Style: S2L2A
             ChunkCacheSize: 250M
             # PlaceGroups:

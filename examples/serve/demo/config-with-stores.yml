@@ -84,7 +84,7 @@ DataStores:
     - Identifier: eo4natura-local
       StoreId: file
       StoreParams:
-          root: ./
+          root: ./examples/serve/demo
           max_depth: 1
       Datasets:
           - Identifier: cog_local

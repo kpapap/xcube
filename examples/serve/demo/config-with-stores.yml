@@ -81,6 +81,24 @@ DataStores:
             #     - PlaceGroupRef: outside-cube
             # AccessControl:
             #     IsSubstitute: True
+    - Identifier: eo4natura-local
+      StoreId: file
+      StoreParams:
+          root: ${resolve_config_path}
+          max_depth: 1
+      Datasets:
+          - Identifier: cog_local
+            Title: COG example
+            GroupTitle: GeoTIFF
+            FileSystem: file
+            Path: sample-cog.tif
+            Style: tif_style
+          - Identifier: geotiff_local
+            Title: GeoTIFF example
+            GroupTitle: GeoTIFF
+            FileSystem: file
+            Path: sample-geotiff.tif
+            Style: tif_style
 
 PlaceGroups:
     - Identifier: inside-cube
@@ -170,6 +188,27 @@ Styles:
           albedo:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
+    - Identifier: tif_style
+      ColorMappings:
+          band_1:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          band_2:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          band_3:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          rgb:
+              Red:
+                  Variable: band_1
+                  ValueRange: [0., 255.]
+              Green:
+                  Variable: band_2
+                  ValueRange: [0., 255.]
+              Blue:
+                  Variable: band_3
+                  ValueRange: [0., 255.]
 
 ServiceProvider:
     ProviderName: "Brockmann Consult GmbH"

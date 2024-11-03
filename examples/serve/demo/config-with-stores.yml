@@ -50,7 +50,7 @@ DataStores:
     - Identifier: eo4natura-tif
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/
+          root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/20240608/
           max_depth: 2
           storage_options:
               anon: false

@@ -27,7 +27,7 @@ DataStores:
             GroupTitle: WildcardZarr
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: wildcard-new
+    - Identifier: new
       StoreId: s3
       StoreParams:
           root: eo4naturazarr2/zarr/median_seasonal_composites
@@ -37,7 +37,9 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "*.zarr"
+          - Path: "S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
+            Identifier: new
+            Title: new
             GroupTitle: WildcardNew
             Style: S2L2A
             ChunkCacheSize: 250M

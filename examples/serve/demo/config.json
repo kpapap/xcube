@@ -14,8 +14,6 @@
         "primaryColor": "blue",
         "secondaryColor": "pink",
         "organisationUrl": "https://xcube.readthedocs.io/",
-        "logoImage": "images/logo.png",
-        "logoWidth": 32,
         "baseMapUrl": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         "defaultAgg": "mean",
         "polygonFillOpacity": 0.2,

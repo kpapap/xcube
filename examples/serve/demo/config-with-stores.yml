@@ -180,7 +180,13 @@ Styles:
           B11:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
+          B11_md:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
           B12:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B12_md:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
           SCL:

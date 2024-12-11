@@ -30,7 +30,7 @@ DataStores:
     - Identifier: wildcard-new
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_composites/
+          root: eo4naturazarr2/zarr/median_seasonal_composites
           max_depth: 1
           storage_options:
               anon: false

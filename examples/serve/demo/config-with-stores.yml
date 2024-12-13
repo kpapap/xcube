@@ -37,10 +37,10 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "S2_L2A_median_composite_2017-11-252018-03-20.zarr"
+          - Path: "TEST_dropped_nodata_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
             Identifier: new
             Title: new
-            GroupTitle: WildcardNew
+            GroupTitle: New
             Style: S2L2A
             ChunkCacheSize: 250M
     - Identifier: eo4natura-zarr

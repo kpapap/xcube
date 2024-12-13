@@ -206,7 +206,7 @@ Styles:
                   ValueRange: [0., 0.25]
           ndvi:
               ColorBar: "delta"
-              ValueRange: [-1., 1.]
+              ValueRange: [-1000., 1000.]
           bci:
               ColorBar: "gray"
               ValueRange: [0., 0.25]

@@ -37,9 +37,15 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
+          - Path: "TEST_dropped_nodata_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
+            Identifier: new_dropped_nodata
+            Title: new_dropped_nodata
+            GroupTitle: New
+            Style: S2L2A
+            ChunkCacheSize: 250M
           - Path: "TEST_without_any_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
-            Identifier: new
-            Title: new
+            Identifier: new_without_any
+            Title: new_without_any
             GroupTitle: New
             Style: S2L2A
             ChunkCacheSize: 250M

@@ -49,6 +49,12 @@ DataStores:
             GroupTitle: New
             Style: S2L2A
             ChunkCacheSize: 250M
+          - Path: "TEST_with_time_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
+            Identifier: new_with_time
+            Title: new_with_time
+            GroupTitle: New
+            Style: S2L2A
+            ChunkCacheSize: 250M
     - Identifier: eo4natura-zarr
       StoreId: s3
       StoreParams:

@@ -13,7 +13,7 @@ DatasetChunkCacheSize: 250M
 
 DataStores:
     # # This section needs to be kept, because it is part of xcube server documentation using DataStores.
-    - Identifier: wildcard-zarr
+    - Identifier: aurora_with_pyramids
       StoreId: s3
       StoreParams:
           root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
@@ -24,10 +24,10 @@ DataStores:
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
           - Path: "*.zarr"
-            GroupTitle: WildcardZarr
+            GroupTitle: AuroraZarr
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: new
+    - Identifier: median_seasonal_composites
       StoreId: s3
       StoreParams:
           root: eo4naturazarr2/zarr/median_seasonal_composites
@@ -37,108 +37,10 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "TEST_dropped_nodata_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
-            Identifier: new_dropped_nodata
-            Title: new_dropped_nodata
-            GroupTitle: New
+          - Path: "*.zarr"
+            GroupTitle: MedianSeasonalComposites
             Style: S2L2A
             ChunkCacheSize: 250M
-          - Path: "TEST_without_any_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
-            Identifier: new_without_any
-            Title: new_without_any
-            GroupTitle: New
-            Style: S2L2A
-            ChunkCacheSize: 250M
-          - Path: "TEST_with_time_S2_L2A_median_composite_2017-11-25_2018-03-20.zarr"
-            Identifier: new_with_time
-            Title: new_with_time
-            GroupTitle: New
-            Style: S2L2A
-            ChunkCacheSize: 250M
-    - Identifier: eo4natura-zarr
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Identifier: eo4natura_s3_1
-            Title: Datacube 01 3Is Stretched March 2023
-            GroupTitle: Zarr
-            # BoundingBox: [0.0, 50, 5.0, 52.5]
-            Path: "cube_3Is_streched_2023-03-01_2023-03-30.zarr"
-            Style: S2L2A
-            ChunkCacheSize: 250M
-            # PlaceGroups:
-            #     - PlaceGroupRef: inside-cube
-            #     - PlaceGroupRef: outside-cube
-            # AccessControl:
-            #     IsSubstitute: True
-          - Identifier: eo4natura_s3_2
-            Title: Datacube 02 3Is Stretched October 2023
-            GroupTitle: Zarr
-            # BoundingBox: [0.0, 50, 5.0, 52.5]
-            Path: "cube_3Is_streched_2023-10-01_2023-10-30.zarr"
-            Style: S2L2A
-            ChunkCacheSize: 250M
-            # PlaceGroups:
-            #     - PlaceGroupRef: inside-cube
-            #     - PlaceGroupRef: outside-cube
-            # AccessControl:
-            #     IsSubstitute: True
-    - Identifier: eo4natura-tif
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/cogs/median_seasonal_composites/EU010M_E058N008T1/20240608
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Identifier: eo4natura_s3_3
-            Title: Datacube 20240608 cogs-tifs B02md
-            GroupTitle: Tif
-            # BoundingBox: [0.0, 50, 5.0, 52.5]
-            Path: "S2_L2A_median_2024060820240913_EU010M_E058N008T1_B02_md.tif"
-            Style: S2L2A
-            ChunkCacheSize: 250M
-            # PlaceGroups:
-            #     - PlaceGroupRef: inside-cube
-            #     - PlaceGroupRef: outside-cube
-            # AccessControl:
-            #     IsSubstitute: True
-          - Identifier: eo4natura_s3_4
-            Title: Datacube 20240608 cogs-tifs ndvi
-            GroupTitle: Tif
-            # BoundingBox: [0.0, 50, 5.0, 52.5]
-            Path: "S2_L2A_median_2024060820240913_EU010M_E058N008T1_ndvi.tif"
-            Style: S2L2A
-            ChunkCacheSize: 250M
-            # PlaceGroups:
-            #     - PlaceGroupRef: inside-cube
-            #     - PlaceGroupRef: outside-cube
-            # AccessControl:
-            #     IsSubstitute: True
-    - Identifier: eo4natura-local
-      StoreId: file
-      StoreParams:
-          root: ./examples/serve/demo
-          max_depth: 1
-      Datasets:
-          - Identifier: cog_local
-            Title: COG example
-            GroupTitle: GeoTIFF
-            Path: sample-cog.tif
-            Style: tif_style
-          - Identifier: geotiff_local
-            Title: GeoTIFF example
-            GroupTitle: GeoTIFF
-            Path: sample-geotiff.tif
-            Style: tif_style
 
 PlaceGroups:
     - Identifier: inside-cube
@@ -257,19 +159,19 @@ Styles:
                   ValueRange: [0., 255.]
 
 ServiceProvider:
-    ProviderName: "Brockmann Consult GmbH"
-    ProviderSite: "https://www.brockmann-consult.de"
+    ProviderName: "Project eo4natura project, using AWS Open Data"
+    ProviderSite: "https://github.com/kpapap/xcube"
     ServiceContact:
-        IndividualName: "Norman Fomferra"
-        PositionName: "Senior Software Engineer"
+        IndividualName: "Georgios Mallinis"
+        PositionName: "Professor"
         ContactInfo:
             Phone:
-                Voice: "+49 4152 889 303"
-                Facsimile: "+49 4152 889 330"
+                Voice: "+302310996085"
+                Facsimile: "+302310996085"
             Address:
-                DeliveryPoint: "HZG / GITZ"
-                City: "Geesthacht"
-                AdministrativeArea: "Herzogtum Lauenburg"
-                PostalCode: "21502"
-                Country: "Germany"
-                ElectronicMailAddress: "norman.fomferra@brockmann-consult.de"
+                DeliveryPoint: "School of Rural and Surveying Engineering, Aristotle University of Thessaloniki"
+                City: "Thessaloniki"
+                AdministrativeArea: "School of Rural and Surveying Engineering, Aristotle University of Thessaloniki"
+                PostalCode: "54636"
+                Country: "Greece"
+                ElectronicMailAddress: "gmallin@topo.auth.gr"

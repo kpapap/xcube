@@ -118,31 +118,31 @@ Styles:
       ColorMappings:
           B01:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B02_md:
               ColorBar: "gray"
               ValueRange: [0., 10000.]
           B03_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B04_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B05:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B06:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B07:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B08_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B8A:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B09:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
@@ -154,26 +154,26 @@ Styles:
               ValueRange: [0., 0.25]
           B11_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           B12:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
           B12_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 10000.]
           SCL:
               ColorBar: "gray"
               ValueRange: [0, 255]
           rgb:
               Red:
                   Variable: B04_md
-                  ValueRange: [0., 0.25]
+                  ValueRange: [0., 10000.]
               Green:
                   Variable: B03_md
-                  ValueRange: [0., 0.25]
+                  ValueRange: [0., 10000.]
               Blue:
                   Variable: B02_md
-                  ValueRange: [0., 0.25]
+                  ValueRange: [0., 10000.]
           ndvi:
               ColorBar: "delta"
               ValueRange: [-1., 1.]

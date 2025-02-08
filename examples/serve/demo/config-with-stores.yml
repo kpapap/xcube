@@ -69,6 +69,34 @@ DataStores:
             GroupTitle: MedianSeasonalWildfires
             Style: S2L2A
             ChunkCacheSize: 250M
+    - Identifier: median_anniversary_quarries_magnitude
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_anniversary_quarries_magnitude
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianAnniversaryQuarries
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: median_anniversary_wildfires_magnitude
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_anniversary_wildfires_magnitude
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianAnniversaryWildfires
+            Style: S2L2A
+            ChunkCacheSize: 250M
 
 PlaceGroups:
     - Identifier: inside-cube

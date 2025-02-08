@@ -121,7 +121,7 @@ Styles:
               ValueRange: [0., 0.25]
           B02_md:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 1.]
           B03_md:
               ColorBar: "gray"
               ValueRange: [0., 0.25]
@@ -179,19 +179,19 @@ Styles:
               ValueRange: [-1., 1.]
           bci:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 1.]
           msbi:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 1.]
           ndmi:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [-1., 1.]
           tsg:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 1.]
           albedo:
               ColorBar: "gray"
-              ValueRange: [0., 0.25]
+              ValueRange: [0., 1.]
     - Identifier: tif_style
       ColorMappings:
           band_1:

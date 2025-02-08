@@ -121,7 +121,7 @@ Styles:
               ValueRange: [0., 0.25]
           B02_md:
               ColorBar: "gray"
-              ValueRange: [0., 1.]
+              ValueRange: [0., 10000.]
           B03_md:
               ColorBar: "gray"
               ValueRange: [0., 0.25]

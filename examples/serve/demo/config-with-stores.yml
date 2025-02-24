@@ -13,20 +13,20 @@ DatasetChunkCacheSize: 250M
 
 DataStores:
     # # This section needs to be kept, because it is part of xcube server documentation using DataStores.
-    - Identifier: aurora_with_pyramids
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Path: "*.zarr"
-            GroupTitle: AuroraZarr
-            Style: S2L2A
-            ChunkCacheSize: 250M
+    # - Identifier: aurora_with_pyramids
+    #   StoreId: s3
+    #   StoreParams:
+    #       root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
+    #       max_depth: 1
+    #       storage_options:
+    #           anon: false
+    #           key: ${AWS_ACCESS_KEY_ID}
+    #           secret: ${AWS_SECRET_ACCESS_KEY}
+    #   Datasets:
+    #       - Path: "*.zarr"
+    #         GroupTitle: AuroraZarr
+    #         Style: S2L2A
+    #         ChunkCacheSize: 250M
     - Identifier: median_seasonal_composites
       StoreId: s3
       StoreParams:

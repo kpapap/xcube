@@ -37,7 +37,7 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "*.zarr"
+          - Path: "S2L2A*.zarr"
             GroupTitle: MedianSeasonalComposites
             Style: S2L2A
             ChunkCacheSize: 250M

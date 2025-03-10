@@ -41,10 +41,10 @@ DataStores:
             GroupTitle: MedianSeasonalComposites
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: median_seasonal_quarries_magnitude
+    - Identifier: median_seasonal_quarries
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_quarries_magnitude
+          root: eo4naturazarr2/zarr/median_seasonal_quarries
           max_depth: 1
           storage_options:
               anon: false
@@ -55,10 +55,10 @@ DataStores:
             GroupTitle: MedianSeasonalQuarries
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: median_seasonal_wildfires_magnitude
+    - Identifier: median_seasonal_wildfires
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_wildfires_magnitude
+          root: eo4naturazarr2/zarr/median_seasonal_wildfires
           max_depth: 1
           storage_options:
               anon: false
@@ -69,10 +69,10 @@ DataStores:
             GroupTitle: MedianSeasonalWildfires
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: median_anniversary_quarries_magnitude
+    - Identifier: median_anniversary_quarries
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/median_anniversary_quarries_magnitude
+          root: eo4naturazarr2/zarr/median_anniversary_quarries
           max_depth: 1
           storage_options:
               anon: false
@@ -83,10 +83,10 @@ DataStores:
             GroupTitle: MedianAnniversaryQuarries
             Style: S2L2A
             ChunkCacheSize: 250M
-    - Identifier: median_anniversary_wildfires_magnitude
+    - Identifier: median_anniversary_wildfires
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/median_anniversary_wildfires_magnitude
+          root: eo4naturazarr2/zarr/median_anniversary_wildfires
           max_depth: 1
           storage_options:
               anon: false

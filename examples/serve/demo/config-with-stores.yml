@@ -107,7 +107,9 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "*.zarr"
+          - Identifier: patched_metadata_dataset
+            Title: Patched Metadata Dataset
+            Path: "S2L2A_median_comp_winter2024.zarr"
             GroupTitle: PatchedMetadata
             Style: PatchedMetadataStyle
             ChunkCacheSize: 250M

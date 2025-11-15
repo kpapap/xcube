@@ -97,6 +97,20 @@ DataStores:
             GroupTitle: MedianAnniversaryWildfires
             Style: S2L2A
             ChunkCacheSize: 250M
+    - Identifier: patched_metadata
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/patched_metadata
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: PatchedMetadata
+            Style: PatchedMetadataStyle
+            ChunkCacheSize: 250M
 
 PlaceGroups:
     - Identifier: inside-cube
@@ -114,6 +128,84 @@ PlaceGroups:
           image: ${resolve_config_path("images/outside-cube/${ID}.jpg")}
 
 Styles:
+    - Identifier: PatchedMetadataStyle
+      ColorMappings:
+          B01:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B02_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B03_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B04_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B05:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B06:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B07:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B08_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B8A:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B09:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B10:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B12:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B12_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          SCL:
+              ColorBar: "gray"
+              ValueRange: [0, 255]
+          rgb:
+              Red:
+                  Variable: B04_md
+                  ValueRange: [0., 10000.]
+              Green:
+                  Variable: B03_md
+                  ValueRange: [0., 10000.]
+              Blue:
+                  Variable: B02_md
+                  ValueRange: [0., 10000.]
+          ndvi:
+              ColorBar: "delta"
+              ValueRange: [-1., 1.]
+          bci:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          msbi:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          ndmi:
+              ColorBar: "gray"
+              ValueRange: [-1., 1.]
+          tsg:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          albedo:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
     - Identifier: S2L2A
       ColorMappings:
           B01:

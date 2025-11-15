@@ -113,6 +113,12 @@ DataStores:
             GroupTitle: PatchedMetadata
             Style: PatchedMetadataStyle
             ChunkCacheSize: 250M
+          - Identifier: patched_metadata_new_dataset
+            Title: Patched Metadata New Dataset
+            Path: "quarries_autumn2017_winter2018.zarr"
+            GroupTitle: PatchedMetadata
+            Style: PatchedMetadataStyle
+            ChunkCacheSize: 250M
 
 PlaceGroups:
     - Identifier: inside-cube
@@ -207,6 +213,12 @@ Styles:
               ValueRange: [0., 1.]
           albedo:
               ColorBar: "gray"
+              ValueRange: [0., 1.]
+          binary:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          magn:
+              ColorBar: "viridis"
               ValueRange: [0., 1.]
     - Identifier: S2L2A
       ColorMappings:

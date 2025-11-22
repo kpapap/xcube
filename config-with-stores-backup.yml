@@ -1,0 +1,339 @@
+DatasetAttribution:
+    - "© xcube & eo4natura"
+
+DatasetChunkCacheSize: 250M
+
+## You may want to specify a location of your server resources.
+#base_dir: s3://<bucket>/<path-to-your>/<resources>/
+
+# You may want to specify a remote location of your viewer resources.
+#Viewer:
+#  Configuration:
+#    Path: s3://<bucket>/<path-to-your-viewer>/<resources>
+
+DataStores:
+    # # This section needs to be kept, because it is part of xcube server documentation using DataStores.
+    # - Identifier: aurora_with_pyramids
+    #   StoreId: s3
+    #   StoreParams:
+    #       root: eo4naturazarr2/ndvi_from_aurora_with_pyramids.zarr
+    #       max_depth: 1
+    #       storage_options:
+    #           anon: false
+    #           key: ${AWS_ACCESS_KEY_ID}
+    #           secret: ${AWS_SECRET_ACCESS_KEY}
+    #   Datasets:
+    #       - Path: "*.zarr"
+    #         GroupTitle: AuroraZarr
+    #         Style: S2L2A
+    #         ChunkCacheSize: 250M
+    - Identifier: median_seasonal_composites
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_seasonal_composites
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "S2L2A*.zarr"
+            GroupTitle: MedianSeasonalComposites
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: median_seasonal_quarries
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_seasonal_quarries
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianSeasonalQuarries
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: median_seasonal_wildfires
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_seasonal_wildfires
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianSeasonalWildfires
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: median_anniversary_quarries
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_anniversary_quarries
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianAnniversaryQuarries
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: median_anniversary_wildfires
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/median_anniversary_wildfires
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Path: "*.zarr"
+            GroupTitle: MedianAnniversaryWildfires
+            Style: S2L2A
+            ChunkCacheSize: 250M
+    - Identifier: patched_metadata
+      StoreId: s3
+      StoreParams:
+          root: eo4naturazarr2/zarr/patched_metadata
+          max_depth: 1
+          storage_options:
+              anon: false
+              key: ${AWS_ACCESS_KEY_ID}
+              secret: ${AWS_SECRET_ACCESS_KEY}
+      Datasets:
+          - Identifier: patched_metadata_dataset
+            Title: Patched Metadata Dataset
+            Path: "S2L2A_median_comp_winter2024.zarr"
+            GroupTitle: PatchedMetadata
+            Style: PatchedMetadataStyle
+            ChunkCacheSize: 250M
+          - Identifier: patched_metadata_new_dataset
+            Title: Patched Metadata New Dataset
+            Path: "quarries_autumn2017_winter2018.zarr"
+            GroupTitle: PatchedMetadata
+            Style: PatchedMetadataStyle
+            ChunkCacheSize: 250M
+
+PlaceGroups:
+    - Identifier: inside-cube
+      Title: Places inside the cube
+      Path: places/inside-cube.geojson
+      Join:
+          Property: ID
+          Path: places/inside-cube-media.geojson
+      PropertyMapping:
+          image: ${resolve_config_path("images/inside-cube/${image}")}
+    - Identifier: outside-cube
+      Title: Places outside the cube
+      Path: places/outside-cube.geojson
+      PropertyMapping:
+          image: ${resolve_config_path("images/outside-cube/${ID}.jpg")}
+
+Styles:
+    - Identifier: PatchedMetadataStyle
+      ColorMappings:
+          B01:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B02_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B03_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B04_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B05:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B06:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B07:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B08_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B8A:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B09:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B10:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B12:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B12_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          SCL:
+              ColorBar: "gray"
+              ValueRange: [0, 255]
+          rgb:
+              Red:
+                  Variable: B04_md
+                  ValueRange: [0., 10000.]
+              Green:
+                  Variable: B03_md
+                  ValueRange: [0., 10000.]
+              Blue:
+                  Variable: B02_md
+                  ValueRange: [0., 10000.]
+          ndvi:
+              ColorBar: "delta"
+              ValueRange: [-1., 1.]
+          bci:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          msbi:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          ndmi:
+              ColorBar: "gray"
+              ValueRange: [-1., 1.]
+          tsg:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          albedo:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          binary:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          magn:
+              ColorBar: "viridis"
+              ValueRange: [0., 1.]
+    - Identifier: S2L2A
+      ColorMappings:
+          B01:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B02_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B03_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B04_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B05:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B06:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B07:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B08_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B8A:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B09:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B10:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B12:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B12_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          SCL:
+              ColorBar: "gray"
+              ValueRange: [0, 255]
+          rgb:
+              Red:
+                  Variable: B04_md
+                  ValueRange: [0., 10000.]
+              Green:
+                  Variable: B03_md
+                  ValueRange: [0., 10000.]
+              Blue:
+                  Variable: B02_md
+                  ValueRange: [0., 10000.]
+          ndvi:
+              ColorBar: "delta"
+              ValueRange: [-1., 1.]
+          bci:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          msbi:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          ndmi:
+              ColorBar: "gray"
+              ValueRange: [-1., 1.]
+          tsg:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          albedo:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+    - Identifier: tif_style
+      ColorMappings:
+          band_1:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          band_2:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          band_3:
+              ColorBar: bone
+              ValueRange: [0., 255.]
+          rgb:
+              Red:
+                  Variable: band_1
+                  ValueRange: [0., 255.]
+              Green:
+                  Variable: band_2
+                  ValueRange: [0., 255.]
+              Blue:
+                  Variable: band_3
+                  ValueRange: [0., 255.]
+
+ServiceProvider:
+    ProviderName: "Project eo4natura project, using AWS Open Data"
+    ProviderSite: "https://github.com/kpapap/xcube"
+    ServiceContact:
+        IndividualName: "Georgios Mallinis"
+        PositionName: "Professor"
+        ContactInfo:
+            Phone:
+                Voice: "+302310996085"
+                Facsimile: "+302310996085"
+            Address:
+                DeliveryPoint: "School of Rural and Surveying Engineering, Aristotle University of Thessaloniki"
+                City: "Thessaloniki"
+                AdministrativeArea: "School of Rural and Surveying Engineering, Aristotle University of Thessaloniki"
+                PostalCode: "54636"
+                Country: "Greece"
+                ElectronicMailAddress: "gmallin@topo.auth.gr"

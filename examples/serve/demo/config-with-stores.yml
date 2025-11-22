@@ -169,91 +169,91 @@ DataStores:
             Title: wildfires_monitoring_autumn2017_autumn2018
             Path: "wildfires_autumn2017_autumn2018_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2018_autumn2019_DY1
             Title: wildfires_monitoring_autumn2018_autumn2019
             Path: "wildfires_autumn2018_autumn2019_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2019_autumn2020_DY1
             Title: wildfires_monitoring_autumn2019_autumn2020
             Path: "wildfires_autumn2019_autumn2020_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2020_autumn2021_DY1
             Title: wildfires_monitoring_autumn2020_autumn2021
             Path: "wildfires_autumn2020_autumn2021_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2021_autumn2022_DY1
             Title: wildfires_monitoring_autumn2021_autumn2022
             Path: "wildfires_autumn2021_autumn2022_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2022_autumn2023_DY1
             Title: wildfires_monitoring_autumn2022_autumn2023
             Path: "wildfires_autumn2022_autumn2023_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_autumn2023_autumn2024_DY1
             Title: wildfires_monitoring_autumn2023_autumn2024
             Path: "wildfires_autumn2023_autumn2024_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2017_summer2018_DY1
             Title: wildfires_monitoring_summer2017_summer2018
             Path: "wildfires_summer2017_summer2018_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2018_summer2019_DY1
             Title: wildfires_monitoring_summer2018_summer2019
             Path: "wildfires_summer2018_summer2019_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2019_summer2020_DY1
             Title: wildfires_monitoring_summer2019_summer2020
             Path: "wildfires_summer2019_summer2020_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2020_summer2021_DY1
             Title: wildfires_monitoring_summer2020_summer2021
             Path: "wildfires_summer2020_summer2021_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2021_summer2022_DY1
             Title: wildfires_monitoring_summer2021_summer2022
             Path: "wildfires_summer2021_summer2022_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2022_summer2023_DY1
             Title: wildfires_monitoring_summer2022_summer2023
             Path: "wildfires_summer2022_summer2023_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2023_summer2024_DY1
             Title: wildfires_monitoring_summer2023_summer2024
             Path: "wildfires_summer2023_summer2024_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
           - Identifier: wildfires_summer2024_summer2025_DY1
             Title: wildfires_monitoring_summer2024_summer2025
             Path: "wildfires_summer2024_summer2025_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
-            Style: ProductionStyle
+            Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
     - Identifier: median_seasonal_composites
       StoreId: s3
@@ -528,7 +528,6 @@ CustomColorMaps:
           # Tuple format: [Value, Color, Label]
           - [-1.0, "#FF0000", Low Values]
           - [1.0, "#0000FF", High Values]
-
     - Identifier: tsg_mask
       Type: continuous
       Colors:
@@ -618,6 +617,86 @@ Styles:
           magn:
               ColorBar: "viridis"
               ValueRange: [0., 1.]
+    - Identifier: ProductionStyle_wildfires
+      ColorMappings:
+          B01:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B02_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B03_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B04_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B05:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B06:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B07:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B08_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B8A:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B09:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B10:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B11_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          B12:
+              ColorBar: "gray"
+              ValueRange: [0., 0.25]
+          B12_md:
+              ColorBar: "gray"
+              ValueRange: [0., 10000.]
+          SCL:
+              ColorBar: "gray"
+              ValueRange: [0, 255]
+          rgb:
+              Red:
+                  Variable: B04_md
+                  ValueRange: [0., 10000.]
+              Green:
+                  Variable: B03_md
+                  ValueRange: [0., 10000.]
+              Blue:
+                  Variable: B02_md
+                  ValueRange: [0., 10000.]
+          ndvi:
+              ColorBar: "delta"
+              ValueRange: [-1., 1.]
+          bci:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          msbi:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          ndmi:
+              ColorBar: "ndmi_mask"
+          tsg:
+              ColorBar: "tsg_mask"
+          albedo:
+              ColorBar: "gray"
+              ValueRange: [0., 1.]
+          binary:
+              ColorBar: "binary_mask_wildfires"
+          magn:
+              ColorBar: "magn_mask_wildfires"
 
 ServiceProvider:
     ProviderName: "Project eo4natura project, using AWS Open Data"

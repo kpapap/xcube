@@ -27,48 +27,22 @@ DataStores:
     #         GroupTitle: AuroraZarr
     #         Style: S2L2A
     #         ChunkCacheSize: 250M
-    - Identifier: median_seasonal_composites
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_composites
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Path: "S2L2A*.zarr"
-            GroupTitle: MedianSeasonalComposites
-            Style: S2L2A
-            ChunkCacheSize: 250M
-    - Identifier: median_seasonal_quarries
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_quarries
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Path: "*.zarr"
-            GroupTitle: MedianSeasonalQuarries
-            Style: S2L2A
-            ChunkCacheSize: 250M
-    - Identifier: median_seasonal_wildfires
-      StoreId: s3
-      StoreParams:
-          root: eo4naturazarr2/zarr/median_seasonal_wildfires
-          max_depth: 1
-          storage_options:
-              anon: false
-              key: ${AWS_ACCESS_KEY_ID}
-              secret: ${AWS_SECRET_ACCESS_KEY}
-      Datasets:
-          - Path: "*.zarr"
-            GroupTitle: MedianSeasonalWildfires
-            Style: S2L2A
-            ChunkCacheSize: 250M
+    #   - Identifier: median_seasonal_quarries
+    #     StoreId: s3
+    #     StoreParams:
+    #       root: eo4naturazarr2/zarr/median_seasonal_quarries
+    #       max_depth: 1
+    #       storage_options:
+    #         anon: false
+    #         key: ${AWS_ACCESS_KEY_ID}
+    #         secret: ${AWS_SECRET_ACCESS_KEY}
+    #     Datasets:
+    #       - Path: '*.zarr'
+    #         GroupTitle: MedianSeasonalQuarries
+    #         Style: ProductionStyle
+    #         ChunkCacheSize: 250M
+
+    # We keep only the following DataStore for production use, the rest are for documentation purposes.
     - Identifier: median_anniversary_quarries
       StoreId: s3
       StoreParams:
@@ -79,9 +53,107 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "*.zarr"
-            GroupTitle: MedianAnniversaryQuarries
-            Style: S2L2A
+          - Identifier: quarries_autumn2017_autumn2018_DY1
+            Title: quarries_changes_autumn2017_autumn2018
+            Path: "quarries_autumn2017_autumn2018_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2018_autumn2019_DY1
+            Title: quarries_changes_autumn2018_autumn2019
+            Path: "quarries_autumn2018_autumn2019_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2019_autumn2020_DY1
+            Title: quarries_changes_autumn2019_autumn2020
+            Path: "quarries_autumn2019_autumn2020_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2020_autumn2021_DY1
+            Title: quarries_changes_autumn2020_autumn2021
+            Path: "quarries_autumn2020_autumn2021_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2021_autumn2022_DY1
+            Title: quarries_changes_autumn2021_autumn2022
+            Path: "quarries_autumn2021_autumn2022_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2022_autumn2023_DY1
+            Title: quarries_changes_autumn2022_autumn2023
+            Path: "quarries_autumn2022_autumn2023_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2023_autumn2024_DY1
+            Title: quarries_changes_autumn2023_autumn2024
+            Path: "quarries_autumn2023_autumn2024_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2017_autumn2024_DY7
+            Title: quarries_changes_autumn2017_autumn2024
+            Path: "quarries_autumn2017_autumn2024_DY7.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2017_summer2018_DY1
+            Title: quarries_changes_summer2017_summer2018
+            Path: "quarries_summer2017_summer2018_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2018_summer2019_DY1
+            Title: quarries_changes_summer2018_summer2019
+            Path: "quarries_summer2018_summer2019_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2019_summer2020_DY1
+            Title: quarries_changes_summer2019_summer2020
+            Path: "quarries_summer2019_summer2020_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2020_summer2021_DY1
+            Title: quarries_changes_summer2020_summer2021
+            Path: "quarries_summer2020_summer2021_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2021_summer2022_DY1
+            Title: quarries_changes_summer2021_summer2022
+            Path: "quarries_summer2021_summer2022_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2022_summer2023_DY1
+            Title: quarries_changes_summer2022_summer2023
+            Path: "quarries_summer2022_summer2023_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2023_summer2024_DY1
+            Title: quarries_changes_summer2023_summer2024
+            Path: "quarries_summer2023_summer2024_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2024_summer2025_DY1
+            Title: quarries_changes_summer2024_summer2025
+            Path: "quarries_summer2024_summer2025_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_summer2017_summer2024_DY7
+            Title: quarries_changes_summer2017_summer2024
+            Path: "quarries_summer2017_summer2024_DY7.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
             ChunkCacheSize: 250M
     - Identifier: median_anniversary_wildfires
       StoreId: s3
@@ -93,31 +165,315 @@ DataStores:
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Path: "*.zarr"
-            GroupTitle: MedianAnniversaryWildfires
-            Style: S2L2A
+          - Identifier: wildfires_autumn2017_autumn2018_DY1
+            Title: wildfires_monitoring_autumn2017_autumn2018
+            Path: "wildfires_autumn2017_autumn2018_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
             ChunkCacheSize: 250M
-    - Identifier: patched_metadata
+          - Identifier: wildfires_autumn2018_autumn2019_DY1
+            Title: wildfires_monitoring_autumn2018_autumn2019
+            Path: "wildfires_autumn2018_autumn2019_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2019_autumn2020_DY1
+            Title: wildfires_monitoring_autumn2019_autumn2020
+            Path: "wildfires_autumn2019_autumn2020_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2020_autumn2021_DY1
+            Title: wildfires_monitoring_autumn2020_autumn2021
+            Path: "wildfires_autumn2020_autumn2021_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2021_autumn2022_DY1
+            Title: wildfires_monitoring_autumn2021_autumn2022
+            Path: "wildfires_autumn2021_autumn2022_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2022_autumn2023_DY1
+            Title: wildfires_monitoring_autumn2022_autumn2023
+            Path: "wildfires_autumn2022_autumn2023_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2023_autumn2024_DY1
+            Title: wildfires_monitoring_autumn2023_autumn2024
+            Path: "wildfires_autumn2023_autumn2024_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2017_summer2018_DY1
+            Title: wildfires_monitoring_summer2017_summer2018
+            Path: "wildfires_summer2017_summer2018_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2018_summer2019_DY1
+            Title: wildfires_monitoring_summer2018_summer2019
+            Path: "wildfires_summer2018_summer2019_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2019_summer2020_DY1
+            Title: wildfires_monitoring_summer2019_summer2020
+            Path: "wildfires_summer2019_summer2020_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2020_summer2021_DY1
+            Title: wildfires_monitoring_summer2020_summer2021
+            Path: "wildfires_summer2020_summer2021_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2021_summer2022_DY1
+            Title: wildfires_monitoring_summer2021_summer2022
+            Path: "wildfires_summer2021_summer2022_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2022_summer2023_DY1
+            Title: wildfires_monitoring_summer2022_summer2023
+            Path: "wildfires_summer2022_summer2023_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2023_summer2024_DY1
+            Title: wildfires_monitoring_summer2023_summer2024
+            Path: "wildfires_summer2023_summer2024_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_summer2024_summer2025_DY1
+            Title: wildfires_monitoring_summer2024_summer2025
+            Path: "wildfires_summer2024_summer2025_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+    - Identifier: median_seasonal_composites
       StoreId: s3
       StoreParams:
-          root: eo4naturazarr2/zarr/patched_metadata
+          root: eo4naturazarr2/zarr/median_seasonal_composites
           max_depth: 1
           storage_options:
               anon: false
               key: ${AWS_ACCESS_KEY_ID}
               secret: ${AWS_SECRET_ACCESS_KEY}
       Datasets:
-          - Identifier: patched_metadata_dataset
-            Title: Patched Metadata Dataset
-            Path: "S2L2A_median_comp_winter2024.zarr"
-            GroupTitle: PatchedMetadata
-            Style: PatchedMetadataStyle
+          - Identifier: S2L2A_median_comp_autumn2017
+            Title: Sentinel_composite_autumn2017
+            Path: "S2L2A_median_comp_autumn2017.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
             ChunkCacheSize: 250M
-          - Identifier: patched_metadata_new_dataset
-            Title: Patched Metadata New Dataset
-            Path: "quarries_autumn2017_winter2018.zarr"
-            GroupTitle: PatchedMetadata
-            Style: PatchedMetadataStyle
+          - Identifier: S2L2A_median_comp_autumn2018
+            Title: Sentinel_composite_autumn2018
+            Path: "S2L2A_median_comp_autumn2018.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2019
+            Title: Sentinel_composite_autumn2019
+            Path: "S2L2A_median_comp_autumn2019.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2020
+            Title: Sentinel_composite_autumn2020
+            Path: "S2L2A_median_comp_autumn2020.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2021
+            Title: Sentinel_composite_autumn2021
+            Path: "S2L2A_median_comp_autumn2021.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2022
+            Title: Sentinel_composite_autumn2022
+            Path: "S2L2A_median_comp_autumn2022.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2023
+            Title: Sentinel_composite_autumn2023
+            Path: "S2L2A_median_comp_autumn2023.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2024
+            Title: Sentinel_composite_autumn2024
+            Path: "S2L2A_median_comp_autumn2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2017
+            Title: Sentinel_composite_spring2017
+            Path: "S2L2A_median_comp_spring2017.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2018
+            Title: Sentinel_composite_spring2018
+            Path: "S2L2A_median_comp_spring2018.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2019
+            Title: Sentinel_composite_spring2019
+            Path: "S2L2A_median_comp_spring2019.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2020
+            Title: Sentinel_composite_spring2020
+            Path: "S2L2A_median_comp_spring2020.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2021
+            Title: Sentinel_composite_spring2021
+            Path: "S2L2A_median_comp_spring2021.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2022
+            Title: Sentinel_composite_spring2022
+            Path: "S2L2A_median_comp_spring2022.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2023
+            Title: Sentinel_composite_spring2023
+            Path: "S2L2A_median_comp_spring2023.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2024
+            Title: Sentinel_composite_spring2024
+            Path: "S2L2A_median_comp_spring2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_spring2025
+            Title: Sentinel_composite_spring2025
+            Path: "S2L2A_median_comp_spring2025.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2017
+            Title: Sentinel_composite_summer2017
+            Path: "S2L2A_median_comp_summer2017.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2018
+            Title: Sentinel_composite_summer2018
+            Path: "S2L2A_median_comp_summer2018.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2019
+            Title: Sentinel_composite_summer2019
+            Path: "S2L2A_median_comp_summer2019.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2020
+            Title: Sentinel_composite_summer2020
+            Path: "S2L2A_median_comp_summer2020.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2021
+            Title: Sentinel_composite_summer2021
+            Path: "S2L2A_median_comp_summer2021.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2022
+            Title: Sentinel_composite_summer2022
+            Path: "S2L2A_median_comp_summer2022.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2023
+            Title: Sentinel_composite_summer2023
+            Path: "S2L2A_median_comp_summer2023.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2024
+            Title: Sentinel_composite_summer2024
+            Path: "S2L2A_median_comp_summer2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_summer2025
+            Title: Sentinel_composite_summer2025
+            Path: "S2L2A_median_comp_summer2025.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2016
+            Title: Sentinel_composite_winter2016
+            Path: "S2L2A_median_comp_winter2016.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2017
+            Title: Sentinel_composite_winter2017
+            Path: "S2L2A_median_comp_winter2017.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2018
+            Title: Sentinel_composite_winter2018
+            Path: "S2L2A_median_comp_winter2018.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2019
+            Title: Sentinel_composite_winter2019
+            Path: "S2L2A_median_comp_winter2019.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2020
+            Title: Sentinel_composite_winter2020
+            Path: "S2L2A_median_comp_winter2020.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2021
+            Title: Sentinel_composite_winter2021
+            Path: "S2L2A_median_comp_winter2021.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2022
+            Title: Sentinel_composite_winter2022
+            Path: "S2L2A_median_comp_winter2022.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2023
+            Title: Sentinel_composite_winter2023
+            Path: "S2L2A_median_comp_winter2023.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2024
+            Title: Sentinel_composite_winter2024
+            Path: "S2L2A_median_comp_winter2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
             ChunkCacheSize: 250M
 
 PlaceGroups:
@@ -135,8 +491,53 @@ PlaceGroups:
       PropertyMapping:
           image: ${resolve_config_path("images/outside-cube/${ID}.jpg")}
 
+CustomColorMaps:
+    - Identifier: binary_mask_quarries
+      Type: categorical
+      Colors:
+          # Tuple format: [Value, Color, Label]
+          # Class 0: No Change
+          # Using a light gray with some transparency)
+          - [0, "#969696", No Change]
+
+          # Class 1: Change
+          # Using bright yellow hex code (#FFFF00)
+          - [1, "#FFFF00", Change]
+    - Identifier: binary_mask_wildfires
+      Type: categorical
+      Colors:
+          # Tuple format: [Value, Color, Label]
+          # Class 0: No Change
+          # Using a light gray with some transparency)
+          - [0, "#969696", No Change]
+
+          # Class 1: Change
+          # Bright Red hex code
+          - [1, "#FF0000", Change]
+    - Identifier: magn_mask_wildfires
+      Type: continuous
+      Colors:
+          - [0.0, "#0d0887", Low]
+          - [0.25, "#6a00a8", Quarter]
+          - [0.5, "#b12a90", Mid]
+          - [0.75, "#e16462", Three Quarter]
+          - [1.0, "#f0f921", High]
+    - Identifier: ndmi_mask
+      Type: continuous
+      Colors:
+          # Tuple format: [Value, Color, Label]
+          - [-1.0, "#FF0000", Low Values]
+          - [1.0, "#0000FF", High Values]
+
+    - Identifier: tsg_mask
+      Type: continuous
+      Colors:
+          # Tuple format: [Value, Color, Label]
+          - [0.0, "#FF0000", Low Values]
+          - [1.0, "#00FF00", High Values]
+
 Styles:
-    - Identifier: PatchedMetadataStyle
+    - Identifier: ProductionStyle
       ColorMappings:
           B01:
               ColorBar: "gray"
@@ -206,119 +607,17 @@ Styles:
               ColorBar: "gray"
               ValueRange: [0., 1.]
           ndmi:
-              ColorBar: "gray"
-              ValueRange: [-1., 1.]
+              ColorBar: "ndmi_mask"
           tsg:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
+              ColorBar: "tsg_mask"
           albedo:
               ColorBar: "gray"
               ValueRange: [0., 1.]
           binary:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
+              ColorBar: "binary_mask_quarries"
           magn:
               ColorBar: "viridis"
               ValueRange: [0., 1.]
-    - Identifier: S2L2A
-      ColorMappings:
-          B01:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B02_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B03_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B04_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B05:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B06:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B07:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B08_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B8A:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B09:
-              ColorBar: "gray"
-              ValueRange: [0., 0.25]
-          B10:
-              ColorBar: "gray"
-              ValueRange: [0., 0.25]
-          B11:
-              ColorBar: "gray"
-              ValueRange: [0., 0.25]
-          B11_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          B12:
-              ColorBar: "gray"
-              ValueRange: [0., 0.25]
-          B12_md:
-              ColorBar: "gray"
-              ValueRange: [0., 10000.]
-          SCL:
-              ColorBar: "gray"
-              ValueRange: [0, 255]
-          rgb:
-              Red:
-                  Variable: B04_md
-                  ValueRange: [0., 10000.]
-              Green:
-                  Variable: B03_md
-                  ValueRange: [0., 10000.]
-              Blue:
-                  Variable: B02_md
-                  ValueRange: [0., 10000.]
-          ndvi:
-              ColorBar: "delta"
-              ValueRange: [-1., 1.]
-          bci:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
-          msbi:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
-          ndmi:
-              ColorBar: "gray"
-              ValueRange: [-1., 1.]
-          tsg:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
-          albedo:
-              ColorBar: "gray"
-              ValueRange: [0., 1.]
-    - Identifier: tif_style
-      ColorMappings:
-          band_1:
-              ColorBar: bone
-              ValueRange: [0., 255.]
-          band_2:
-              ColorBar: bone
-              ValueRange: [0., 255.]
-          band_3:
-              ColorBar: bone
-              ValueRange: [0., 255.]
-          rgb:
-              Red:
-                  Variable: band_1
-                  ValueRange: [0., 255.]
-              Green:
-                  Variable: band_2
-                  ValueRange: [0., 255.]
-              Blue:
-                  Variable: band_3
-                  ValueRange: [0., 255.]
 
 ServiceProvider:
     ProviderName: "Project eo4natura project, using AWS Open Data"

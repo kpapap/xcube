@@ -95,9 +95,21 @@ DataStores:
             GroupTitle: Quarries_Monitoring
             Style: ProductionStyle
             ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2024_autumn2025_DY1
+            Title: quarries_changes_autumn2024_autumn2025
+            Path: "quarries_autumn2024_autumn2025_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
           - Identifier: quarries_autumn2017_autumn2024_DY7
             Title: quarries_changes_autumn2017_autumn2024
             Path: "quarries_autumn2017_autumn2024_DY7.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_autumn2017_autumn2025_DY8
+            Title: quarries_changes_autumn2017_autumn2025
+            Path: "quarries_autumn2017_autumn2025_DY8.zarr"
             GroupTitle: Quarries_Monitoring
             Style: ProductionStyle
             ChunkCacheSize: 250M
@@ -207,6 +219,12 @@ DataStores:
             GroupTitle: Wildfires_Monitoring
             Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
+          - Identifier: wildfires_autumn2024_autumn2025_DY1
+            Title: wildfires_monitoring_autumn2024_autumn2025
+            Path: "wildfires_autumn2024_autumn2025_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
           - Identifier: wildfires_summer2017_summer2018_DY1
             Title: wildfires_monitoring_summer2017_summer2018
             Path: "wildfires_summer2017_summer2018_DY1.zarr"
@@ -310,6 +328,12 @@ DataStores:
           - Identifier: S2L2A_median_comp_autumn2024
             Title: Sentinel_composite_autumn2024
             Path: "S2L2A_median_comp_autumn2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_autumn2025
+            Title: Sentinel_composite_autumn2025
+            Path: "S2L2A_median_comp_autumn2025.zarr"
             GroupTitle: Sentinel_Composites
             Style: ProductionStyle
             ChunkCacheSize: 250M

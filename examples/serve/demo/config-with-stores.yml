@@ -167,6 +167,42 @@ DataStores:
             GroupTitle: Quarries_Monitoring
             Style: ProductionStyle
             ChunkCacheSize: 250M
+          - Identifier: quarries_spring2021_spring2022_DY1
+            Title: quarries_changes_spring2021_spring2022
+            Path: "quarries_spring2021_spring2022_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_spring2024_spring2025_DY1
+            Title: quarries_changes_spring2024_spring2025
+            Path: "quarries_spring2024_spring2025_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_winter2020_winter2022_DY1
+            Title: quarries_changes_winter2020_winter2022
+            Path: "quarries_winter2020_winter2022_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_winter2016_winter2018_DY1
+            Title: quarries_changes_winter2016_winter2018
+            Path: "quarries_winter2016_winter2018_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_winter2016_winter2026_DY9
+            Title: quarries_changes_winter2016_winter2026
+            Path: "quarries_winter2016_winter2026_DY9.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: quarries_winter2024_winter2026_DY1
+            Title: quarries_changes_winter2024_winter2026
+            Path: "quarries_winter2024_winter2026_DY1.zarr"
+            GroupTitle: Quarries_Monitoring
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
     - Identifier: median_anniversary_wildfires
       StoreId: s3
       StoreParams:
@@ -270,6 +306,42 @@ DataStores:
           - Identifier: wildfires_summer2024_summer2025_DY1
             Title: wildfires_monitoring_summer2024_summer2025
             Path: "wildfires_summer2024_summer2025_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_winter2016_winter2018_DY1
+            Title: wildfires_monitoring_winter2016_winter2018
+            Path: "wildfires_winter2016_winter2018_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_spring2020_spring2021_DY1
+            Title: wildfires_monitoring_spring2020_spring2021
+            Path: "wildfires_spring2020_spring2021_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_spring2022_spring2023_DY1
+            Title: wildfires_monitoring_spring2022_spring2023
+            Path: "wildfires_spring2022_spring2023_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_winter2022_winter2024_DY1
+            Title: wildfires_monitoring_winter2022_winter2024
+            Path: "wildfires_winter2022_winter2024_DY1.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_winter2016_winter2026_DY9
+            Title: wildfires_monitoring_winter2016_winter2026
+            Path: "wildfires_winter2016_winter2026_DY9.zarr"
+            GroupTitle: Wildfires_Monitoring
+            Style: ProductionStyle_wildfires
+            ChunkCacheSize: 250M
+          - Identifier: wildfires_winter2024_winter2026_DY1
+            Title: wildfires_monitoring_winter2024_winter2026
+            Path: "wildfires_winter2024_winter2026_DY1.zarr"
             GroupTitle: Wildfires_Monitoring
             Style: ProductionStyle_wildfires
             ChunkCacheSize: 250M
@@ -496,6 +568,12 @@ DataStores:
           - Identifier: S2L2A_median_comp_winter2024
             Title: Sentinel_composite_winter2024
             Path: "S2L2A_median_comp_winter2024.zarr"
+            GroupTitle: Sentinel_Composites
+            Style: ProductionStyle
+            ChunkCacheSize: 250M
+          - Identifier: S2L2A_median_comp_winter2025
+            Title: Sentinel_composite_winter2025
+            Path: "S2L2A_median_comp_winter2025.zarr"
             GroupTitle: Sentinel_Composites
             Style: ProductionStyle
             ChunkCacheSize: 250M
